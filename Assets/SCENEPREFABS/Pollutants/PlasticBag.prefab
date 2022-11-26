@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7763854201738696544}
   m_Layer: 0
   m_Name: PlasticBag
-  m_TagString: Untagged
+  m_TagString: Pollutant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

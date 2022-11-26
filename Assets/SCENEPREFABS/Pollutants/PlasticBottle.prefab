@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7525955449311490643}
   m_Layer: 0
   m_Name: PlasticBottle
-  m_TagString: Untagged
+  m_TagString: Pollutant
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pollutantObj: {fileID: 11400000, guid: eede87377458afb4cabff88445d9a9a2, type: 2}
+  subType: 0
 --- !u!65 &7525955449311490643
 BoxCollider:
   m_ObjectHideFlags: 0

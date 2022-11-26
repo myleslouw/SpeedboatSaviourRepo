@@ -348,7 +348,7 @@ GameObject:
   - component: {fileID: 483742465109912645}
   m_Layer: 0
   m_Name: GlassRecycler
-  m_TagString: Untagged
+  m_TagString: PollutantRecycler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -447,6 +447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recyclerType: 0
+  Reward: 10
 --- !u!1 &9218847847567862230
 GameObject:
   m_ObjectHideFlags: 0
