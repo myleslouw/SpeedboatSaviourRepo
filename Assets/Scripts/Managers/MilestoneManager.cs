@@ -51,6 +51,14 @@ public class MilestoneManager : MonoBehaviour
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.ADD_XP, AddXPDelegate);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            LevelUp();
+        }
+    }
+
     public void AddXP(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         PollutantRecycler recycler = (PollutantRecycler)Params;
