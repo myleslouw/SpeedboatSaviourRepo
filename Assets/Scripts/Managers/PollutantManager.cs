@@ -8,6 +8,10 @@ public class PollutantManager : MonoBehaviour
     //when creating it randoms a pollutant type and gives it a reward for recycling based on the type
     [SerializeField] Pollutant[] PollutantOptions = new Pollutant[2];
     [SerializeField] Hazard[] HazardOptions = new Hazard[1];
+    [SerializeField] Transform[] polltantSpawnPoints;       //a centre point (the pollutants spawn in a radius around)
+
+    //the radius of the trash spawn in an area
+    private int[] spawnRadiusArray = new int[] { 10, 20, 40, 25};
 
     const float WATERHEIGHT = 0.7f;  //height of water so pollutants look like theyre floating
     const float oilHeight = 0.3f;      //the height the oil will be (just below water)
@@ -62,16 +66,15 @@ public class PollutantManager : MonoBehaviour
 
     public void SpawnPollutant(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
+        currentLevelNum = GameManager.Level;
 
-        int levelNum = GameManager.Level;
-
-        for (int i = 0; i < 10; i++)
+         for (int i = 0; i < 10; i++)
         {
             //creates a pollutant
             Pollutant spawnedObj = new Pollutant();
             //a transform has a radius of 10 around it
             //a new position is created within that circle
-            Vector2 newPosition = (Random.insideUnitCircle * 10) + new Vector2(SpawnPoint.position.x, SpawnPoint.position.z);
+            Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[currentLevelNum]) + new Vector2(polltantSpawnPoints[currentLevelNum].position.x, polltantSpawnPoints[currentLevelNum].position.z);
             //randoms a pollutant and spawns it at the new position
             spawnedObj = Instantiate(PollutantOptions[rand.Next(0, PollutantOptions.Length)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
             activePollutants.Add(spawnedObj);
@@ -94,6 +97,8 @@ public class PollutantManager : MonoBehaviour
 
     public void ClearOnLevelUp(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
+        //gets the levelnum from event
+        int levelNum = (int)Params;
 
         //DESTROY AT A LATER STAGEEE
         //hide all oil and glass
@@ -105,7 +110,11 @@ public class PollutantManager : MonoBehaviour
         {
             hazard.gameObject.SetActive(false);
         }
+        //Sets the next pollutant spawn point
+        //sets the spawnpoint radius
+        SpawnPoint = polltantSpawnPoints[levelNum];
 
+        
     }
 
 }
