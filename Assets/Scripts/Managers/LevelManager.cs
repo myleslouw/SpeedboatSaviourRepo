@@ -24,11 +24,11 @@ public class LevelManager : MonoBehaviour
     public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //when a level is loaded
-        //spawn the relevant NPCs for that level
+        //hides the relevant NPCs for completed level
         LevelItems[GameManager.Level].SetActive(false);
         //increments the level counter
         GameManager.Level++;
-        //sets the Level 2 GameObject which holds the levels NPCs, trash spawning point and the sea life of the previously completed area
+        //sets the Level 2 GameObject which holds the levels NPC and the sea life of the previously completed area
         LevelItems[GameManager.Level].SetActive(true);
 
     }
