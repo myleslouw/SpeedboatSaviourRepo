@@ -5,9 +5,17 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    [SerializeField] GameObject dialogueBox;
+    [SerializeField] GameObject leftDialogueBox, rightDialogueBox;
     [SerializeField] TextMeshProUGUI currentSpeaker;
     [SerializeField] TextMeshProUGUI currentText;
+
+    [SerializeField] TextMeshProUGUI leftSpeaker;
+    [SerializeField] TextMeshProUGUI leftText;
+    [SerializeField] TextMeshProUGUI rightSpeaker;
+    [SerializeField] TextMeshProUGUI rightText;
+
+    bool playerMustSpeak = false;    //true when the player msut speak
+
     bool dialogueActive = false;
 
     private string playerName = "Player";
@@ -23,7 +31,9 @@ public class DialogueManager : MonoBehaviour
     void Start()
     {
 
-        dialogueBox.SetActive(false);
+        leftDialogueBox.SetActive(false);
+        rightDialogueBox.SetActive(false);
+
         EventManager.OnDelegateEvent StartDialogueDelegate = StartDialogue;
         EventManager.OnDelegateEvent EndDialogeDelegate = EndDialogue;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.NPC_TALK, StartDialogueDelegate);
@@ -69,7 +79,6 @@ public class DialogueManager : MonoBehaviour
     {
         //shows dialogue box
         dialogueActive = true;
-        dialogueBox.SetActive(true);
 
         //starts the dialogue from zero
         dialogueIndex = 0;
@@ -79,15 +88,18 @@ public class DialogueManager : MonoBehaviour
         //gets the number of sentences in the dialogue piece
         numSentences = NPCinRange.dialogue.sentences.Length;
 
+
         //NPC ALWAYS Speaks first
-        SaySentence(NPCinRange.npcName, NPCinRange.dialogue.sentences[0]);
+        playerMustSpeak = false;
+        SaySentence(NPCinRange.npcName, NPCinRange.dialogue.sentences[0], playerMustSpeak);
     }
 
     private void EndDialogue(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //Hide dialogue box
         dialogueActive = false;
-        dialogueBox.SetActive(false);
+        leftDialogueBox.SetActive(false);
+        rightDialogueBox.SetActive(false);
 
         currentSpeaker.text = null;
         currentText.text = null;
@@ -95,11 +107,23 @@ public class DialogueManager : MonoBehaviour
         dialogueIndex = 0;
     }
 
-    private void SaySentence(string speakerName, string sentence)
+    private void SaySentence(string speakerName, string sentence, bool playerSpeaks)
     {
-        //prints a sentence and the speaker name
-        currentSpeaker.text = speakerName;
-        currentText.text = sentence;
+        if (playerSpeaks)
+        {
+            leftDialogueBox.SetActive(true);
+            rightDialogueBox.SetActive(false);
+            leftSpeaker.text = speakerName;
+            leftText.text = sentence;
+        } else
+        {
+            rightDialogueBox.SetActive(true);
+            leftDialogueBox.SetActive(false);
+            rightSpeaker.text = speakerName;
+            rightText.text = sentence;
+        }
+
+        playerMustSpeak = !playerMustSpeak;
     }
 
     private void NextSentence(int currentIndex)
@@ -108,7 +132,7 @@ public class DialogueManager : MonoBehaviour
         {
             //if the index is odd, the player must speak
             string speaker = currentIndex % 2 == 0 ? NPCinRange.npcName : playerName;
-            SaySentence(speaker, NPCinRange.dialogue.sentences[currentIndex]);
+            SaySentence(speaker, NPCinRange.dialogue.sentences[currentIndex], playerMustSpeak);
         }
     }
 }
