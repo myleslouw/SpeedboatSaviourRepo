@@ -10,6 +10,7 @@ TagManager:
   - FuelRefill
   - Pollutant
   - PollutantRecycler
+  - Barricade
   layers:
   - Default
   - TransparentFX
