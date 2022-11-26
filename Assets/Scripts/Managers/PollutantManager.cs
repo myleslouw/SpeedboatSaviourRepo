@@ -7,45 +7,21 @@ public class PollutantManager : MonoBehaviour
     //used for creating and storing pollutants
     //when creating it randoms a pollutant type and gives it a reward for recycling based on the type
     [SerializeField] Pollutant[] PollutantOptions = new Pollutant[2];
-    [SerializeField] Hazard[] HazardOptions = new Hazard[1];
     [SerializeField] Transform[] polltantSpawnPoints;       //a centre point (the pollutants spawn in a radius around)
 
     //the radius of the trash spawn in an area
     private int[] spawnRadiusArray = new int[] { 10, 20, 40, 25};
 
     const float WATERHEIGHT = 0.7f;  //height of water so pollutants look like theyre floating
-    const float oilHeight = 0.3f;      //the height the oil will be (just below water)
 
     private int currentLevelNum = 0;
 
     System.Random rand = new System.Random();
 
     public List<Pollutant> activePollutants = new List<Pollutant>();
-    public List<Hazard> activeHazards = new List<Hazard>();
 
-
-   
-    //dictionary to store the levelnum as key and an oil item which holds an array of oil positions and types
-    Dictionary<int, OilItem> oilSpills = new Dictionary<int, OilItem>()
-    {
-        //1st level
-        { 0, new OilItem(new OilInfo[]
-        {
-            new OilInfo(new Vector3(-3, oilHeight, 2), 0),    //small       //
-            new OilInfo(new Vector3(4, oilHeight, 2), 1),    //big          //
-            new OilInfo(new Vector3(14, oilHeight, -5), 0),    //small      //  
-            new OilInfo(new Vector3(-9, oilHeight, -4), 1),    //big        //
-            new OilInfo(new Vector3(7, oilHeight, -14), 0),    //small      //
-            new OilInfo(new Vector3(-3, oilHeight, 15), 1),    //big
-        })
-        },
-
-        //2nd level
-        
-        //3rd level
-
-    };
-
+    private float timer;
+    private float duration = 5;
 
     void Start()
     {
@@ -59,13 +35,44 @@ public class PollutantManager : MonoBehaviour
 
 
         //spawns them at the start
-        SpawnPollutant(0);
-        SpawnOil();
+        BatchSpawnPollutant();
+        timer = duration;
     }
 
-    public void SpawnPollutant(int levelNum)
+    private void Update()
     {
+        //timer decrease
+        timer -= Time.deltaTime;
+        if (timer <= 0)
+        {
+            //spawn a new pollutant every time the timer hits 0
+            SpawnIndividualPollutant();
+            //resets timer
+            timer = duration;
+        }
+    }
 
+    public void SpawnIndividualPollutant()
+    {
+        //spawns a pollutant in the current levels
+        for (int i = 0; i < currentLevelNum + 1; i++)
+        {
+            //creates a pollutant
+            Pollutant spawnedObj = new Pollutant();
+            //a new position is created within the circle of the spawn point
+            Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[i]) + new Vector2(polltantSpawnPoints[i].position.x, polltantSpawnPoints[i].position.z);
+            //randoms a pollutant and spawns it at the new position
+
+            //INCLUDE SPAWN RATE
+            spawnedObj = Instantiate(PollutantOptions[rand.Next(0, PollutantOptions.Length)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
+            activePollutants.Add(spawnedObj);
+        }
+    }
+
+    public void BatchSpawnPollutant()
+    {
+        //spawn point changes depending on level
+        //spawn radius changes depending on level
          for (int i = 0; i < 10; i++)
         {
             //creates a pollutant
@@ -74,23 +81,12 @@ public class PollutantManager : MonoBehaviour
             //a new position is created within that circle
             Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[currentLevelNum]) + new Vector2(polltantSpawnPoints[currentLevelNum].position.x, polltantSpawnPoints[currentLevelNum].position.z);
             //randoms a pollutant and spawns it at the new position
-            spawnedObj = Instantiate(PollutantOptions[rand.Next(0, PollutantOptions.Length)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
+
+            //INCLUDE SPAWN RATE
+            spawnedObj = Instantiate(PollutantOptions[SpawnRateCalculator(currentLevelNum)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
             activePollutants.Add(spawnedObj);
         }
         
-    }
-
-    public void SpawnOil()
-    {
-        for (int i = 0; i < oilSpills[currentLevelNum].OilSpillsInLevel.Length ; i++)
-        {
-            Hazard spawnedHazard = new Hazard();
-            int hazardType = oilSpills[0].OilSpillsInLevel[i].oilType;  //gets the oil type
-            Vector3 oilPosition = oilSpills[0].OilSpillsInLevel[i].oilPosition;                         //  vv   spawns flat and at a random angle
-            spawnedHazard = Instantiate(HazardOptions[hazardType], oilPosition, Quaternion.Euler(new Vector3(-90, 0, rand.Next(0, 180))));
-            activeHazards.Add(spawnedHazard);
-        }
-
     }
 
     public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -98,23 +94,21 @@ public class PollutantManager : MonoBehaviour
         //gets the levelnum from event
         currentLevelNum = (int)Params;
 
-        //DESTROY AT A LATER STAGEEE
-        //hide all oil and glass
-        foreach (Pollutant pollutant in activePollutants.ToArray())
-        {
-            activePollutants.Remove(pollutant);
-            Destroy(pollutant.gameObject);
-        }
-        foreach (Hazard hazard in activeHazards.ToArray())
-        {
-            activeHazards.Remove(hazard);
-            Destroy(hazard.gameObject);
-        }
-        //Sets the next pollutant spawn point
-        //sets the spawnpoint radius
+        ////Destroy the active pollutants before more spawn
+        //for (int i = 0; i < activePollutants.Count; i++)
+        //{
+        //    Destroy(activePollutants[i]);
+        //    activePollutants.RemoveAt(i);
+        //}
 
-        SpawnPollutant(currentLevelNum);
+        //spawns the pollutants for the next level
+        BatchSpawnPollutant();
         
     }
 
+    private int SpawnRateCalculator(int levelNum)
+    {
+        //gets a pollutant type based on the ratio at which they spawn in the each level
+        return 0;
+    }
 }
