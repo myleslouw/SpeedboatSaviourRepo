@@ -10,6 +10,7 @@ public class PlayerScript : MonoBehaviour
 {
     private AudioManager audioManager;
     public SoundObj impactSoundObj, recycleSoundObj, pickupObj;
+    private Boat currentBoat;
     
     // Start is called before the first frame update
     void Start()
@@ -30,12 +31,15 @@ public class PlayerScript : MonoBehaviour
         audioManager.AddSoundToList(pickupObj);
     }
 
+    public void GetBoatDetails(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //gets the boat number on upgrade
+        currentBoat = GetComponentInParent<GameManager>().currentBoat;
+    }
 
     //TRIGGER ONCE
     private void OnTriggerEnter(Collider other)
-    {
-        
-        
+    { 
         if (other != null)
         {
             //stores the gameobject it collides with
@@ -51,6 +55,15 @@ public class PlayerScript : MonoBehaviour
                 audioManager.Play("Pickup");
                 //plays the animation and destroys the obj
                 collisionObj.GetComponent<Pollutant>().PickUpAnimation();
+            }
+
+            if (currentBoat.OilPickup)
+            {
+                if (other.gameObject.GetComponent<Hazard>())
+                {
+                    //now the player has the oilpickup it will collect the oil
+                    EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.OIL_PICKUP, this, null);
+                }
             }
 
             //checks collision with recycler
@@ -104,15 +117,16 @@ public class PlayerScript : MonoBehaviour
     {
         //TRIGGER WHILE TOUCHING
 
-        //Hazard - does damage to the current boat
+        //Hazard - does damage to the current boat if it doesnt have the oil pickup
         //FuelRefill - refills the current boat
-        if (other.gameObject.GetComponent<Hazard>())
+        if (!currentBoat.OilPickup)
         {
-           
-            //if the player touches a hazard, it will damage WHILE the player touches it
-            GetComponent<Boat>().TakeDamage();
+            if (other.gameObject.GetComponent<Hazard>())
+            {
+                //if the player touches a hazard, it will damage WHILE the player touches it
+                currentBoat.TakeDamage();
+            }
         }
-
         if (other.gameObject.GetComponent<FuelRefill>())
         {
             //if the player collides with a Fuel game object, it will refuel the current boat WHILE it touches the refill point

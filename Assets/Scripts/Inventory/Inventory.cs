@@ -7,6 +7,7 @@ public class Inventory : MonoBehaviour
 {
     //key is the type and the value is the type amount
     public Dictionary<PollutantType.type, int> PollutantInventory;
+    public int Credits, Oil;
 
     public static Inventory Instance
     {
@@ -34,10 +35,12 @@ public class Inventory : MonoBehaviour
         CreateInventory();
 
         //creates the delegates and the methods to it
-        EventManager.OnDelegateEvent AddPollutantDelegate = AddToInventory;
+        EventManager.OnDelegateEvent AddPollutantDelegate = AddPollutantToInventory;
+        EventManager.OnDelegateEvent AddOilDelegate = AddOilToInventory;
         EventManager.OnDelegateEvent RecyclePollutantDelegate = RecycleType;
         //becomes a listener for the POLLUTANT_PICKUP event
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, AddPollutantDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.OIL_PICKUP, AddOilDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_POLLUTANT, RecyclePollutantDelegate);
     }
 
@@ -51,9 +54,13 @@ public class Inventory : MonoBehaviour
         PollutantInventory.Add(PollutantType.type.Plastic, 0);
         PollutantInventory.Add(PollutantType.type.GeneralWaste, 0);
 
+        //sets currencies to 0
+        Credits = 0;
+        Oil = 0;
+
     }
 
-    private void AddToInventory(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    private void AddPollutantToInventory(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //casts the obj recieved from the event to a pollutant and then increments the count in inv based on type
         if (Params != null)
@@ -67,6 +74,18 @@ public class Inventory : MonoBehaviour
             //UI event becuase the UI would pudate before it was added to inv
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.PICKUP_UI, this, pickedUpPollutant);
         }
+    }
+
+    private void AddCreditsToInventory(PollutantRecycler recycler)
+    {
+        //adds credits (typeReward x the amount of that type)
+        Credits += (recycler.Reward * PollutantInventory[recycler.recyclerType]);
+    }
+
+    private void AddOilToInventory(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //Adds oil to inventory
+        Oil += 1;
     }
 
     private void RecycleType(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -83,6 +102,9 @@ public class Inventory : MonoBehaviour
                 //if the inventory isnt empty it should play a sound when recycling
                 GetComponent<AudioManager>().Play("Recycle");
             }
+
+            //ADD CREDITS TO THE INVENTORY
+            AddCreditsToInventory(recycler);
 
             //ADD XP event
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.ADD_XP, this, recycler);

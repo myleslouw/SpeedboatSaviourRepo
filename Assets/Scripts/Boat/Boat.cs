@@ -15,6 +15,9 @@ public class Boat : MonoBehaviour
     public float Fuel;
     //the amount of fuel the boat uses per tick
     public float FuelConsumption;
+    //whether the boat has the oil pickup
+    public bool OilPickup = false;
+
 
     public GameObject cameraTarget;
 

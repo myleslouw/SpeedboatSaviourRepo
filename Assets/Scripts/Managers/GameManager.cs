@@ -11,18 +11,20 @@ public class GameManager : MonoBehaviour
     AudioManager audioManager;
     public Slider DurabilitySlider;
     public Slider FuelSlider;
-    int currentBoat;
+    public int currentBoatIndex;
     [SerializeField] GameObject[] BoatSelection;
+    public Boat currentBoat;
+    public bool OilPickupObtained;
 
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
-        currentBoat = 0;
+        currentBoatIndex = 0;
         audioManager = GetComponent<AudioManager>();
         audioManager.Play("WaveAmbience");
-        currentBoat = 0;
-        SetBoat(currentBoat);
+        currentBoatIndex = 0;
+        SetBoat(currentBoatIndex);
 
         EventManager.OnDelegateEvent GameStartBoatDelegate = GameStartBoat; 
         EventManager.OnDelegateEvent NewBoatDelegate = ChangeBoat;
@@ -33,13 +35,13 @@ public class GameManager : MonoBehaviour
 
     public void ChangeBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        if (currentBoat < 2)
+        if (currentBoatIndex < 2)
         {
-            currentBoat++;
+            currentBoatIndex++;
         }
         //sets prev boat to inactive
-        BoatSelection[currentBoat - 1].SetActive(false);
-        SetBoat(currentBoat);
+        BoatSelection[currentBoatIndex - 1].SetActive(false);
+        SetBoat(currentBoatIndex);
     }
 
     private void SetBoat(int currentBoatIndex)
@@ -57,17 +59,21 @@ public class GameManager : MonoBehaviour
         //sets the Fuel slider to show the new boats Fuel
         BoatSelection[currentBoatIndex].GetComponent<Boat>().fuelSlider = FuelSlider;
 
+        //sets the current boat to the active boat
+        currentBoat = BoatSelection[currentBoatIndex].GetComponent<Boat>();
+        //if the oilpickup is obtained, it will be active
+        currentBoat.OilPickup = OilPickupObtained;
 
     }
 
     public void GameStartBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        SetBoat(currentBoat);
+        SetBoat(currentBoatIndex);
         
     }
 
     public void GameEnd(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        BoatSelection[currentBoat].SetActive(false);
+        BoatSelection[currentBoatIndex].SetActive(false);
     }
 }
