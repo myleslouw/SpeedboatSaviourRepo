@@ -15,8 +15,11 @@ public class Boat : MonoBehaviour
     public float Fuel;
     //the amount of fuel the boat uses per tick
     public float FuelConsumption;
+    //the amount it refills every tick
+    public float refillAmount;
     //whether the boat has the oil pickup
     public bool OilPickup = false;
+
 
 
     public GameObject cameraTarget;
@@ -46,10 +49,8 @@ public class Boat : MonoBehaviour
 
     private void Start()
     {
-        EventManager.OnDelegateEvent RefuelDelegate = RefuelBoat;
         EventManager.OnDelegateEvent PickupDelegate = PickupPollutant;
         EventManager.OnDelegateEvent ClearBoatDelegate = RemovePollutants;
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.REFUEL, RefuelDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, PickupDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_POLLUTANT, ClearBoatDelegate);
 
@@ -112,14 +113,12 @@ public class Boat : MonoBehaviour
         }
     }
 
-    public void RefuelBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    public void RefuelBoat()
     {
-        //get the fuel object from the event
-        int fuelRefill = (int)Params;
         //add the refill amount to the boats current fuel if its not full
         if (!(Fuel >= 100))
         {
-            Fuel += fuelRefill;
+            Fuel += refillAmount;
         }
     }
 

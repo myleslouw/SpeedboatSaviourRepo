@@ -11,7 +11,12 @@ public class PlayerScript : MonoBehaviour
     private AudioManager audioManager;
     public SoundObj impactSoundObj, recycleSoundObj, pickupObj;
     private Boat currentBoat;
-    
+    bool colliding;
+    //used for doing damage every x seconds
+    bool timerOn = false;
+    float curTime = 0.0f;
+    float timeNeeded = 2.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +48,7 @@ public class PlayerScript : MonoBehaviour
 
     //TRIGGER ONCE
     private void OnTriggerEnter(Collider other)
-    { 
+    {
         if (other != null)
         {
             //stores the gameobject it collides with
@@ -60,14 +65,23 @@ public class PlayerScript : MonoBehaviour
                 collisionObj.GetComponent<Pollutant>().PickUpAnimation();
             }
 
-            if (currentBoat.OilPickup)
+            //collision with hazard has 2 different outcomes
+            if (collisionObj.gameObject.CompareTag("Hazard"))
             {
-                if (collisionObj.gameObject.CompareTag("Hazard"))
+                //if it has the oil pickup upgrade
+                if (currentBoat.OilPickup)
                 {
                     //now the player has the oilpickup it will collect the oil
                     EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.OIL_PICKUP, this, null);
                 }
+                else
+                {
+                    //if it doesnt have the upgrade
+                    //damage the boat every second
+                    InvokeRepeating("DamageBoat", 0.0f, 1.0f);
+                }
             }
+
 
             //checks collision with recycler
             if (collisionObj.gameObject.CompareTag("PollutantRecycler"))
@@ -81,9 +95,14 @@ public class PlayerScript : MonoBehaviour
             {
                 //if player collides with NPC collider it will trigger the NPC talk event 
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_TALK, this, collisionObj.GetComponent<NPC>());
+
             }
 
-            
+            if (collisionObj.CompareTag("FuelRefill"))
+            {
+                InvokeRepeating("FuelBoat", 0.0f, 0.5f);
+            }
+
         }
     }
 
@@ -95,12 +114,12 @@ public class PlayerScript : MonoBehaviour
         //collision.relativeVelocity.magnitude / 3
         impactSoundObj.volume = collision.relativeVelocity.magnitude / 3;
         audioManager.Play("Impact");
-        
+
         if (collision.gameObject.CompareTag("Animal"))
         {
-            
+
             Animal_WanderScript wanderScript = collision.gameObject.GetComponent<Animal_WanderScript>();
-                
+
             Debug.Log("Player bumped into " + collision.gameObject.name);
 
             //wanderScript.TakeDamage(1000);
@@ -114,26 +133,27 @@ public class PlayerScript : MonoBehaviour
             //when the player leaves the NPC talking area
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_LEAVE, this, this.transform);
         }
-    }
 
-    private void OnTriggerStay(Collider other)
-    {
-        //TRIGGER WHILE TOUCHING
-
-        //Hazard - does damage to the current boat if it doesnt have the oil pickup
-        //FuelRefill - refills the current boat
-        if (!currentBoat.OilPickup)
+        //stop damaging boat
+        if (other.gameObject.CompareTag("Hazard"))
         {
-            if (other.gameObject.CompareTag("Hazard"))
-            {
-                //if the player touches a hazard, it will damage WHILE the player touches it
-                currentBoat.TakeDamage();
-            }
+            CancelInvoke("DamageBoat");
         }
+        //stop refueling
         if (other.gameObject.CompareTag("FuelRefill"))
         {
-            //if the player collides with a Fuel game object, it will refuel the current boat WHILE it touches the refill point
-            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.REFUEL, this, other.gameObject.GetComponent<FuelRefill>().RefillAmount);
+            CancelInvoke("FuelBoat");
         }
+    }
+
+    private void DamageBoat()
+    {
+        print("Damageing boat");
+        currentBoat.TakeDamage();
+    }
+
+    private void FuelBoat()
+    {
+        currentBoat.RefuelBoat();
     }
 }
