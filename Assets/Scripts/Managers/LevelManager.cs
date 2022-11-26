@@ -11,14 +11,9 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LevelItems[0].SetActive(true);
         EventManager.OnDelegateEvent NextLevelDelegate = NextLevel;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP,NextLevelDelegate);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)

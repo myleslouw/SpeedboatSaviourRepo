@@ -16,7 +16,7 @@ public class PollutantManager : MonoBehaviour
     const float WATERHEIGHT = 0.7f;  //height of water so pollutants look like theyre floating
     const float oilHeight = 0.3f;      //the height the oil will be (just below water)
 
-    private int currentLevelNum;
+    private int currentLevelNum = 0;
 
     System.Random rand = new System.Random();
 

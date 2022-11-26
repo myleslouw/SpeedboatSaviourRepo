@@ -52,7 +52,6 @@ public class PlayerScript : MonoBehaviour
             //checks collision with pollutant
             if (collisionObj.gameObject.CompareTag("Pollutant"))
             {
-                print("POLLUTANT!!");
                 //Posts the event to all listeners of the POLLUTANT_PICKUP event and sends the pollutant for listeners to use
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, this, collisionObj.GetComponent<Pollutant>());
                 //play the pickup sound 
@@ -80,7 +79,6 @@ public class PlayerScript : MonoBehaviour
             //collision with NPC collider
             if (collisionObj.CompareTag("NPC"))
             {
-                print("NPC!!");
                 //if player collides with NPC collider it will trigger the NPC talk event 
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_TALK, this, collisionObj.GetComponent<NPC>());
             }
