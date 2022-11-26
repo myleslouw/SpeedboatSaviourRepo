@@ -12,8 +12,8 @@ public class EventManager : MonoBehaviour
     //possible events that will take place in the game
     public enum EVENT_TYPE
     {
-        GAME_START, GAME_END, GAME_PAUSE, POLLUTANT_PICKUP, PICKUP_UI,
-        RECYCLE_POLLUTANT, ADD_XP, RECYCLE_UI, LEVEL_UP, NPC_TALK, NPC_LEAVE, UPGRADE_BOAT, REFUEL
+        GAME_START, GAME_END, GAME_PAUSE, POLLUTANT_PICKUP, OIL_PICKUP, ADD_XP, PICKUP_UI,
+        RECYCLE_POLLUTANT, RECYCLE_UI, LEVEL_UP, NPC_TALK, NPC_LEAVE, UPGRADE_BOAT, REFUEL
     }
 
     public static EventManager Instance
