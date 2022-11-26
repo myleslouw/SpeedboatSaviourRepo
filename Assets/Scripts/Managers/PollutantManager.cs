@@ -24,7 +24,6 @@ public class PollutantManager : MonoBehaviour
     public List<Hazard> activeHazards = new List<Hazard>();
 
 
-    public Transform SpawnPoint;
    
     //dictionary to store the levelnum as key and an oil item which holds an array of oil positions and types
     Dictionary<int, OilItem> oilSpills = new Dictionary<int, OilItem>()
@@ -50,23 +49,22 @@ public class PollutantManager : MonoBehaviour
 
     void Start()
     {
-        currentLevelNum = GameManager.Level;
+        currentLevelNum = 0;
 
         //EventManager.OnDelegateEvent SpawnPollutantDelegate = SpawnPollutant;
         //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, SpawnPollutantDelegate);
         //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, SpawnPollutantDelegate);
-        EventManager.OnDelegateEvent ClearOilDelegate = ClearOnLevelUp;
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, ClearOilDelegate);
+        EventManager.OnDelegateEvent NextLevelDelegate = NextLevel;
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, NextLevelDelegate);
 
 
         //spawns them at the start
-        SpawnPollutant(EventManager.EVENT_TYPE.GAME_START, this, null);
+        SpawnPollutant(0);
         SpawnOil();
     }
 
-    public void SpawnPollutant(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    public void SpawnPollutant(int levelNum)
     {
-        currentLevelNum = GameManager.Level;
 
          for (int i = 0; i < 10; i++)
         {
@@ -95,25 +93,27 @@ public class PollutantManager : MonoBehaviour
 
     }
 
-    public void ClearOnLevelUp(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //gets the levelnum from event
-        int levelNum = (int)Params;
+        currentLevelNum = (int)Params;
 
         //DESTROY AT A LATER STAGEEE
         //hide all oil and glass
-        foreach (Pollutant pollutant in activePollutants)
+        foreach (Pollutant pollutant in activePollutants.ToArray())
         {
-            //pollutant.gameObject.SetActive(false);
+            activePollutants.Remove(pollutant);
+            Destroy(pollutant.gameObject);
         }
-        foreach (Hazard hazard in activeHazards)
+        foreach (Hazard hazard in activeHazards.ToArray())
         {
-            hazard.gameObject.SetActive(false);
+            activeHazards.Remove(hazard);
+            Destroy(hazard.gameObject);
         }
         //Sets the next pollutant spawn point
         //sets the spawnpoint radius
-        SpawnPoint = polltantSpawnPoints[levelNum];
 
+        SpawnPollutant(currentLevelNum);
         
     }
 
