@@ -15,6 +15,10 @@ public class PlayerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentBoat = GetComponent<Boat>();
+        EventManager.OnDelegateEvent BoatDetailsDelegate = GetBoatDetails;
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.UPGRADE_BOAT, BoatDetailsDelegate);
+
         //gets the audio manager
         audioManager = GetComponent<BoatController>().audioManager;
 
@@ -46,9 +50,9 @@ public class PlayerScript : MonoBehaviour
             GameObject collisionObj = other.gameObject;
 
             //checks collision with pollutant
-            if (collisionObj.GetComponent<Pollutant>())
+            if (collisionObj.gameObject.CompareTag("Pollutant"))
             {
-
+                print("POLLUTANT!!");
                 //Posts the event to all listeners of the POLLUTANT_PICKUP event and sends the pollutant for listeners to use
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, this, collisionObj.GetComponent<Pollutant>());
                 //play the pickup sound 
@@ -59,7 +63,7 @@ public class PlayerScript : MonoBehaviour
 
             if (currentBoat.OilPickup)
             {
-                if (other.gameObject.GetComponent<Hazard>())
+                if (collisionObj.gameObject.CompareTag("Hazard"))
                 {
                     //now the player has the oilpickup it will collect the oil
                     EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.OIL_PICKUP, this, null);
@@ -67,15 +71,16 @@ public class PlayerScript : MonoBehaviour
             }
 
             //checks collision with recycler
-            if (collisionObj.GetComponent<PollutantRecycler>())
+            if (collisionObj.gameObject.CompareTag("PollutantRecycler"))
             {
                 //if the player collides with a recycler, it will trigger the recycle event
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.RECYCLE_POLLUTANT, this, collisionObj.GetComponent<PollutantRecycler>());
             }
 
             //collision with NPC collider
-            if (collisionObj.GetComponent<NPC>())
+            if (collisionObj.CompareTag("NPC"))
             {
+                print("NPC!!");
                 //if player collides with NPC collider it will trigger the NPC talk event 
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_TALK, this, collisionObj.GetComponent<NPC>());
             }
@@ -106,7 +111,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<NPC>())
+        if (other.gameObject.CompareTag("NPC"))
         {
             //when the player leaves the NPC talking area
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_LEAVE, this, this.transform);
@@ -121,13 +126,13 @@ public class PlayerScript : MonoBehaviour
         //FuelRefill - refills the current boat
         if (!currentBoat.OilPickup)
         {
-            if (other.gameObject.GetComponent<Hazard>())
+            if (other.gameObject.CompareTag("Hazard"))
             {
                 //if the player touches a hazard, it will damage WHILE the player touches it
                 currentBoat.TakeDamage();
             }
         }
-        if (other.gameObject.GetComponent<FuelRefill>())
+        if (other.gameObject.CompareTag("FuelRefill"))
         {
             //if the player collides with a Fuel game object, it will refuel the current boat WHILE it touches the refill point
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.REFUEL, this, other.gameObject.GetComponent<FuelRefill>().RefillAmount);
