@@ -11,10 +11,6 @@ public class Pollutant : MonoBehaviour
     {   //GW must be sideways at start others dont use this
         transform.Rotate(pollutantObj.startOffset);
 
-        //the listener for the pickup event
-        //EventManager.OnDelegateEvent PickupAnimationDelegate = PickUpAnimation;
-        //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, PickupPollutant);
-        //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, PickupAnimationDelegate);
     }
     private void Update()
     {

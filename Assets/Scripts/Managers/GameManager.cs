@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public Boat currentBoat;
     public bool OilPickupObtained;
 
+    public Transform PlayerRespawnPoint;     //the 2 places the player respawns after death/out of fuel  (starting spot, pete)
+
     public bool ActiveQuest = false;
 
     // Start is called before the first frame update
@@ -28,11 +30,12 @@ public class GameManager : MonoBehaviour
         currentBoatIndex = 0;
         SetBoat(currentBoatIndex);
 
-        EventManager.OnDelegateEvent GameStartBoatDelegate = GameStartBoat; 
+        EventManager.OnDelegateEvent GameStartBoatDelegate = GameStartBoat;
         EventManager.OnDelegateEvent NewBoatDelegate = ChangeBoat;
         EventManager.OnDelegateEvent GameEndDelegate = GameEnd;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.UPGRADE_BOAT, NewBoatDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, GameStartBoatDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_END, GameEndDelegate);
     }
 
     public void ChangeBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -71,11 +74,15 @@ public class GameManager : MonoBehaviour
     public void GameStartBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         SetBoat(currentBoatIndex);
-        
+
     }
 
     public void GameEnd(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        BoatSelection[currentBoatIndex].SetActive(false);
+        //sets the boats position to pete dock
+        currentBoat.gameObject.transform.position = PlayerRespawnPoint.position;
+        currentBoat.gameObject.transform.rotation = PlayerRespawnPoint.rotation;
+
+
     }
 }

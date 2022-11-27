@@ -6,6 +6,8 @@ public class QuestManager : MonoBehaviour
 {
     private QuestGiver currentQuestGiver;
     public bool questActive;
+
+    Inventory inventory; //ref
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,7 @@ public class QuestManager : MonoBehaviour
        // EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, StartQuestDelegate);
         EventManager.OnDelegateEvent ProgressDelegate = CheckQuestProgress;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.PICKUP_UI, ProgressDelegate);
+        inventory = GetComponent<Inventory>();
     }
 
     public void StartQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -54,7 +57,7 @@ public class QuestManager : MonoBehaviour
     private bool CheckAmount(PollutantType.type PolType, int requirement)
     {
         //checks if it meets the min amount for the requirement
-        if (Inventory.Instance.PollutantInventory[PolType] >= requirement)
+        if (inventory.PollutantInventory[PolType] >= requirement)
         {
             return true;
         }

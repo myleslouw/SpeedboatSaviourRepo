@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 
 public class Boat : MonoBehaviour
@@ -89,6 +88,7 @@ public class Boat : MonoBehaviour
         //sets the sliders to the fuel and damage value
         durabiltySlider.value = Durabilty;
         fuelSlider.value = Fuel;
+
     }
 
     public void TakeDamage()
@@ -99,7 +99,7 @@ public class Boat : MonoBehaviour
         {
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.GAME_END, this, null);
             Durabilty = 100;
-            SceneManager.LoadScene(2);
+
         }
     }
 
