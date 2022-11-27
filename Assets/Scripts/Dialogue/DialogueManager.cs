@@ -38,6 +38,7 @@ public class DialogueManager : MonoBehaviour
         EventManager.OnDelegateEvent EndDialogeDelegate = EndDialogue;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.NPC_TALK, StartDialogueDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.NPC_LEAVE, EndDialogeDelegate);
+        
     }
 
     // Update is called once per frame
