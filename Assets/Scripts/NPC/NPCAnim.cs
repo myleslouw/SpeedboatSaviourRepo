@@ -14,6 +14,7 @@ public class NPCAnim : MonoBehaviour
     private void Start()
     {
         _control = GetComponent<Animator>();
+        _currentState = NPCState.IDLE;
         SwitchState(_currentState);
     }
 
@@ -27,6 +28,8 @@ public class NPCAnim : MonoBehaviour
     public static void SwitchState(NPCState newState)
     {
         _currentState = newState;
+
+        print(newState);
         
         if (_currentState == NPCState.IDLE)
         {

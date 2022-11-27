@@ -10,7 +10,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text glassCounter, plasticCounter, generalWasteCounter;
     [SerializeField] Text QuestglassCounter, QuestplasticCounter, QuestgeneralWasteCounter;
     private Dictionary<PollutantType.type, Text> TypeCounters;
-    [SerializeField] TextMeshProUGUI levelNum;
     public GameObject Milestone;
     AudioManager audioManager;
     public Slider durabiltySlider;
@@ -27,7 +26,6 @@ public class UIManager : MonoBehaviour
         audioManager = GetComponent<AudioManager>();
         Milestone.SetActive(false);
         //sets lvl num
-        levelNum.text = MilestoneManager.Instance.currentMilestone.ToString();
 
         //puts the counters in the dictionary
         CreateCounters();
@@ -90,9 +88,6 @@ public class UIManager : MonoBehaviour
     private void CompleteQuestUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //change the UI to show new level
-
-        //set lvl num to current milstone
-        levelNum.text = MilestoneManager.Instance.currentMilestone.ToString();
 
         questBox.SetActive(false);
         //play sound

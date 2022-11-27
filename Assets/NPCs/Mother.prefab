@@ -1123,13 +1123,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig1:Hips'\n\tTransform 'mixamorig1:LeftHandThumb1'\n\tTransform
-    'mixamorig1:LeftHandPinky2'\n\tTransform 'mixamorig1:RightHand'\n\tTransform
-    'mixamorig1:LeftHandMiddle2'\n\tTransform 'mixamorig1:RightFoot'\n\tTransform
-    'mixamorig1:Spine1'\n\tTransform 'mixamorig1:RightLeg'\n\tTransform 'mixamorig1:RightHandMiddle2'\n\tTransform
-    'mixamorig1:Hips'\n\tand more ...\n\tFrom animation clip 'Talking Female'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
@@ -1146,8 +1140,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   npcCamera: {fileID: 873307847298665455}
-  dialogue: {fileID: 0}
-  npcName: 
+  dialogue: {fileID: 11400000, guid: e92fb0dd101ea504fb27cc8d68b16c4f, type: 2}
+  npcName: Mother
 --- !u!114 &1168674858302474037
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1160,7 +1154,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d1a20ec2832834d891ced14384bbb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questObj: {fileID: 0}
+  questObj: {fileID: 11400000, guid: 110560ab8445ad9469f880455634d729, type: 2}
+  completed: 0
 --- !u!114 &2366981346913844044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,7 +1168,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd4a5097607b654fb7ce3d827aa6d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
 --- !u!135 &969335983803246901
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1197,13 +1191,14 @@ GameObject:
   m_Component:
   - component: {fileID: 7368038089735645482}
   - component: {fileID: 873307847298665455}
+  - component: {fileID: 5675937867887469954}
   m_Layer: 0
   m_Name: CM vcam Mom1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7368038089735645482
 Transform:
   m_ObjectHideFlags: 0
@@ -1254,6 +1249,14 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 2354659160612526798}
+--- !u!81 &5675937867887469954
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3822404145598914841}
+  m_Enabled: 1
 --- !u!1 &3834206029515603496
 GameObject:
   m_ObjectHideFlags: 0

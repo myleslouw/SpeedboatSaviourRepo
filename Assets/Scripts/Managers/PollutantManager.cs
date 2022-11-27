@@ -125,26 +125,22 @@ public class PollutantManager : MonoBehaviour
         //gets a pollutant type based on the ratio at which they spawn in the each level
         int rndm = rand.Next(1, 100);
 
-        print("NUM: " + rndm);
         //checks glass spawn probability for that level
         if (1 <= rndm && rndm <= spawnRatios[levelNum][0])
         {
             //return glass
-            print("glass");
             return 0;
         }
         //checks gw probability
         else if (spawnRatios[levelNum][0] <= rndm && rndm <= spawnRatios[levelNum][2])
         {
             int rndmGW = rand.Next(1, 4);
-            print("GW");
             return rndmGW;
         }
         //otherwise spawns plastic
         else
         {
             int rndmPlastic = rand.Next(4, 8);
-            print("Plastic");
             return rndmPlastic;
         }
     }

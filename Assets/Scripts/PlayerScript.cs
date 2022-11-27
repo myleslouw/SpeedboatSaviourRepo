@@ -93,9 +93,12 @@ public class PlayerScript : MonoBehaviour
             //collision with NPC collider
             if (collisionObj.CompareTag("NPC"))
             {
+
                 //if player collides with NPC collider it will trigger the NPC talk event 
                 EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_TALK, this, collisionObj.GetComponent<NPC>());
 
+                //switch NPC to talking animation
+                NPCAnim.SwitchState(NPCState.TALKING);
             }
 
             if (collisionObj.CompareTag("FuelRefill"))
@@ -133,11 +136,18 @@ public class PlayerScript : MonoBehaviour
             //when the player leaves the NPC talking area
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_LEAVE, this, this.transform);
 
+            //switch NPC to IDLE animation
+            NPCAnim.SwitchState(NPCState.IDLE);
+
             //if the NPC has a quest it will start
             if (other.gameObject.TryGetComponent(out QuestGiver questGiver))
             {
-                //trigger sthe event
-                EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.START_QUEST, this, questGiver);
+                //if the quest hasnt been done
+                if (!questGiver.completed)
+                {
+                    //trigger sthe event
+                    EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.START_QUEST, this, questGiver);
+                }
 
             }
         }
