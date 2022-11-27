@@ -144,7 +144,7 @@ public class Boat : MonoBehaviour
                     onBoardGlassArray[glassIndex].gameObject.SetActive(true);
 
                     //if it hasnt reached the max amount shown on the boat
-                    if (!(glassIndex >= onBoardGlassArray.Length))
+                    if (!(glassIndex >= onBoardGlassArray.Length - 1))
                     {
                         //increment the index
                         glassIndex++;

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class QuestGiver : MonoBehaviour
 {
-    public ScriptableObject questObj;
+    public QuestObject questObj;
 
-    bool completed;
 }
