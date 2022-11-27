@@ -6,7 +6,10 @@ public class PollutantManager : MonoBehaviour
 {
     //used for creating and storing pollutants
     //when creating it randoms a pollutant type and gives it a reward for recycling based on the type
-    [SerializeField] Pollutant[] PollutantOptions = new Pollutant[2];
+    [SerializeField] Pollutant[] PollutantOptions = new Pollutant[7];
+    //0 = glass
+    //1 - 3 = GW
+    //4 onwards = Plastic
     [SerializeField] Transform[] polltantSpawnPoints;       //a centre point (the pollutants spawn in a radius around)
 
     //the radius of the trash spawn in an area
@@ -19,6 +22,17 @@ public class PollutantManager : MonoBehaviour
     System.Random rand = new System.Random();
 
     public List<Pollutant> activePollutants = new List<Pollutant>();
+
+    private Dictionary<int, int[]> spawnRatios = new Dictionary<int, int[]>
+    {
+//      lvl             G   gw  P
+        {0 , new int[] { 80, 81, 101} },
+        {1 , new int[] { 50, 100, 101} },
+        {2 , new int[] { 45, 90, 100} },
+        {3 , new int[] { 15, 30, 100} },
+        {4 , new int[] {33, 66, 100} },
+
+    };
 
     private float timer;
     private float duration = 5;
@@ -64,7 +78,7 @@ public class PollutantManager : MonoBehaviour
             //randoms a pollutant and spawns it at the new position
 
             //INCLUDE SPAWN RATE
-            spawnedObj = Instantiate(PollutantOptions[rand.Next(0, PollutantOptions.Length)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
+            spawnedObj = Instantiate(PollutantOptions[SpawnRateCalculator(currentLevelNum)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
             activePollutants.Add(spawnedObj);
         }
     }
@@ -109,6 +123,29 @@ public class PollutantManager : MonoBehaviour
     private int SpawnRateCalculator(int levelNum)
     {
         //gets a pollutant type based on the ratio at which they spawn in the each level
-        return 0;
+        int rndm = rand.Next(1, 100);
+
+        print("NUM: " + rndm);
+        //checks glass spawn probability for that level
+        if (1 <= rndm && rndm <= spawnRatios[levelNum][0])
+        {
+            //return glass
+            print("glass");
+            return 0;
+        }
+        //checks gw probability
+        else if (spawnRatios[levelNum][0] <= rndm && rndm <= spawnRatios[levelNum][2])
+        {
+            int rndmGW = rand.Next(1, 4);
+            print("GW");
+            return rndmGW;
+        }
+        //otherwise spawns plastic
+        else
+        {
+            int rndmPlastic = rand.Next(4, 8);
+            print("Plastic");
+            return rndmPlastic;
+        }
     }
 }

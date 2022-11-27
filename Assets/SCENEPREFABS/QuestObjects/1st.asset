@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c8f1d20024314196e8cfdff189d44, type: 3}
   m_Name: 1st
   m_EditorClassIdentifier: 
-  GlassRequirement: 1
-  GWRequirement: 1
-  PlasticRequirement: 1
+  GlassRequirement: 2
+  GWRequirement: 2
+  PlasticRequirement: 0
