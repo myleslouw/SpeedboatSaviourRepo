@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     public Boat currentBoat;
     public bool OilPickupObtained;
 
+    public bool ActiveQuest = false;
+
     // Start is called before the first frame update
     void Start()
     {

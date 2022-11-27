@@ -132,6 +132,13 @@ public class PlayerScript : MonoBehaviour
         {
             //when the player leaves the NPC talking area
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_LEAVE, this, this.transform);
+
+            //if the NPC has a quest it will start
+            if (other.gameObject.GetComponent<QuestGiver>())
+            {
+                print("Starting Quest");
+                
+            }
         }
 
         //stop damaging boat
