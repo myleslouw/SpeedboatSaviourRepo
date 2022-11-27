@@ -13,8 +13,8 @@ public class BoatController : MonoBehaviour
     bool moving;
     public GameObject propeller;
     public Boat Boat;
-    private float coolDown;
-    private float boostDuration = 1;
+    private float coolDown, coolDownDuration;
+    private float boostDuration = 2;
 
 
     //OLD BOAT HEIGHT WAS 3.9 for row boat
@@ -32,6 +32,8 @@ public class BoatController : MonoBehaviour
         //adds the sound to the list of sounds
         audioManager.AddSoundToList(soundObj);
         audioManager.AddSoundToList(milestoneCloseSound);
+
+        coolDownDuration = 4;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -158,7 +160,7 @@ public class BoatController : MonoBehaviour
 
         yield return new WaitForSeconds(boostDuration);
 
-        coolDown = 5;
+        coolDown = coolDownDuration;
 
         speed = 3;
     }

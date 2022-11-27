@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    private QuestObject currentQuest;
+    private QuestGiver currentQuestGiver;
     public bool questActive;
     // Start is called before the first frame update
     void Start()
@@ -20,8 +20,7 @@ public class QuestManager : MonoBehaviour
 
     public void StartQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        QuestGiver giver = (QuestGiver)Params;
-        currentQuest = giver.questObj;
+        currentQuestGiver = (QuestGiver)Params;
         questActive = true;
     }
 
@@ -29,6 +28,8 @@ public class QuestManager : MonoBehaviour
     {
         print("Quest Complete");
         questActive = false;
+        //makes sure the quest cant be done again
+        currentQuestGiver.completed = true;
         //trigger the milestone
         EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, GameManager.Level + 1);
     }
@@ -39,9 +40,9 @@ public class QuestManager : MonoBehaviour
         if (questActive)
         {
             //checks if the number in the inventory is equal or more than the number required for the quest
-            bool glassComplete = CheckAmount(PollutantType.type.Glass, currentQuest.GlassRequirement);
-            bool gwComplete = CheckAmount(PollutantType.type.GeneralWaste, currentQuest.GWRequirement);
-            bool plasticComplete = CheckAmount(PollutantType.type.Plastic, currentQuest.PlasticRequirement);
+            bool glassComplete = CheckAmount(PollutantType.type.Glass, currentQuestGiver.questObj.GlassRequirement);
+            bool gwComplete = CheckAmount(PollutantType.type.GeneralWaste, currentQuestGiver.questObj.GWRequirement);
+            bool plasticComplete = CheckAmount(PollutantType.type.Plastic, currentQuestGiver.questObj.PlasticRequirement);
 
             if (glassComplete == gwComplete && gwComplete == plasticComplete && plasticComplete == true)
             {

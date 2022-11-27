@@ -12,6 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Mother 1
   m_EditorClassIdentifier: 
-  npcName: Mother - 1
-  sentences: []
+  npcName: Mother
+  sentences:
+  - "Darling, the fallen tree across the river have been blocking the water stream!
+    New fish haven\u2019t been able to come this way, and fishing is our bread and
+    butter!"
+  - "I know mom, I just don\u2019t know what to do. The tree is way too big for just
+    two people to move!"
+  - "I spoke to Rodger, he said he can get his team to move the tree, but he can\u2019t
+    do it for free."
+  - "We can\u2019t afford to pay people, mom. Sales at the market have dropped."
+  - Rodger and I made a deal, we clean the river and in return they will remove the
+    tree.
+  - "Great! I\u2019ll take the boat and start cleaning, you should stay home, I don\u2019t
+    want you to strain your hip any more than you already have."
+  - "Thank you, my child. Don\u2019t forget, you can use W A S D to move around and
+    use the mouse to rotate the camera. Simply move into an item to pick it up! Find
+    and speak to Rodger as soon as you are done."
   rewardAfter: 0
