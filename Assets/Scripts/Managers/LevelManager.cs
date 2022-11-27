@@ -13,7 +13,7 @@ public class LevelManager : MonoBehaviour
     {
         LevelItems[0].SetActive(true);
         EventManager.OnDelegateEvent NextLevelDelegate = NextLevel;
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP,NextLevelDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST,NextLevelDelegate);
     }
 
     public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)

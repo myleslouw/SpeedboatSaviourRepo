@@ -31,7 +31,7 @@ public class PollutantManager : MonoBehaviour
         //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, SpawnPollutantDelegate);
         //EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, SpawnPollutantDelegate);
         EventManager.OnDelegateEvent NextLevelDelegate = NextLevel;
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, NextLevelDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, NextLevelDelegate);
 
 
         //spawns them at the start

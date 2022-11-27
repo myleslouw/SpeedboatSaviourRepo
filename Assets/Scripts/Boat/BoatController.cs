@@ -109,15 +109,14 @@ public class BoatController : MonoBehaviour
                 uiManager.Milestone.SetActive(false);
                 //playing the milestone closing sound
                 GetComponentInParent<AudioManager>().Play("CloseMilestone");
-                PlayWavesAfterMilestone();
+                StartCoroutine(WaitTillPlay());
             }
         }
     }
-
-    private async Task PlayWavesAfterMilestone()
+    IEnumerator WaitTillPlay()
     {
-        Task.Delay(500);
-        GetComponentInParent<AudioManager>().Play("WaveAmbience");
+        yield return new WaitForSeconds(0.5f);
+        audioManager.Play("WaveAmbience");
     }
 
     private void MoveBoat(Vector3 direction)

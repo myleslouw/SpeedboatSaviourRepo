@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Threading.Tasks;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject InventoryUI;
     [SerializeField] GameObject LevelUI;
     [SerializeField] GameObject questBox;
+    [SerializeField] GameObject NewMilestoneNotification;
 
     // Start is called before the first frame update
 
@@ -33,20 +35,20 @@ public class UIManager : MonoBehaviour
         //the listener for the pickup event
         EventManager.OnDelegateEvent IncrementDelegate = IncrementPollutantUI;
         EventManager.OnDelegateEvent ResetDelegate = ResetPollutantUI;
-        EventManager.OnDelegateEvent LevelUpDelegate = LevelUpUI;
         EventManager.OnDelegateEvent GameStartDelegate = GameStartUI;
         EventManager.OnDelegateEvent GameOverDelegate = GameOverUI;
         EventManager.OnDelegateEvent ShowQuestDelegate = ShowQuest;
-        EventManager.OnDelegateEvent HideQuestDelegate = HideQuest;
+        EventManager.OnDelegateEvent CompleteQuestDelegate = CompleteQuestUI;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.PICKUP_UI, IncrementDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_UI, ResetDelegate);
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, LevelUpDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, GameStartDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_END, GameOverDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.START_QUEST, ShowQuestDelegate);
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, HideQuestDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, CompleteQuestDelegate);
 
         questBox.SetActive(false);
+        NewMilestoneNotification.SetActive(false);
+
     }
 
     private void CreateCounters()
@@ -85,18 +87,29 @@ public class UIManager : MonoBehaviour
         TypeCounters[polObjType].text = Inventory.Instance.PollutantInventory[polObjType].ToString();
     }
 
-    private void LevelUpUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    private void CompleteQuestUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //change the UI to show new level
 
         //set lvl num to current milstone
         levelNum.text = MilestoneManager.Instance.currentMilestone.ToString();
 
+        questBox.SetActive(false);
         //play sound
         audioManager.Play("MilestoneSound");
 
-        //show Milestone
-        OpenMilestoneUI();
+        //show Milestone notification
+        NewMilestoneNotification.SetActive(true);
+
+        //waits a bit and then plays the waves
+        //PlayWavesAfterMilestone();
+        StartCoroutine(WaitTillPlay());
+    }
+
+    IEnumerator WaitTillPlay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        audioManager.Play("WaveAmbience");
     }
 
     public void OpenMilestoneUI()
@@ -120,10 +133,6 @@ public class UIManager : MonoBehaviour
         QuestglassCounter.text = questGiver.questObj.GlassRequirement.ToString();
         QuestplasticCounter.text = questGiver.questObj.PlasticRequirement.ToString();
         QuestgeneralWasteCounter.text = questGiver.questObj.GWRequirement.ToString();
-    }
-    public void HideQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
-    {
-        questBox.SetActive(false);
     }
 
     private void GameStartUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)

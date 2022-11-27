@@ -27,7 +27,7 @@ public class ColourChanger : MonoBehaviour
     {
         //listens for level up to change the water
         EventManager.OnDelegateEvent WaterChangeDelegate = ChangeWater;
-        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, WaterChangeDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, WaterChangeDelegate);
         Mesh.material.SetColor("ShallowWater", ShallowStartColour);
         Mesh.material.SetColor("DeepWater", DeepStartColour);
         
