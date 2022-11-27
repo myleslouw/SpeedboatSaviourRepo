@@ -9,26 +9,7 @@ public class Inventory : MonoBehaviour
     public Dictionary<PollutantType.type, int> PollutantInventory;
     public int Credits, Oil;
 
-    public static Inventory Instance
-    {
-        get { return instance; }
-        set { }
-    }
-
-    private static Inventory instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            DestroyImmediate(gameObject);
-        }
-    }
+ 
     private void Start()
     {
         //creates the inventory dictionary
@@ -38,6 +19,8 @@ public class Inventory : MonoBehaviour
         EventManager.OnDelegateEvent AddPollutantDelegate = AddPollutantToInventory;
         EventManager.OnDelegateEvent AddOilDelegate = AddOilToInventory;
         EventManager.OnDelegateEvent RecyclePollutantDelegate = RecycleType;
+        EventManager.OnDelegateEvent GameEndDelegate = GameEndInventory;
+
         //becomes a listener for the POLLUTANT_PICKUP event
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, AddPollutantDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.OIL_PICKUP, AddOilDelegate);
@@ -112,6 +95,14 @@ public class Inventory : MonoBehaviour
             //it then updaes the UI to show the 0 in invetory
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.RECYCLE_UI, this, recycler);
         }
+    }
+
+    private void GameEndInventory(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //sets inv to 0
+        PollutantInventory[PollutantType.type.Glass] = 0;
+        PollutantInventory[PollutantType.type.Plastic] = 0;
+        PollutantInventory[PollutantType.type.GeneralWaste] = 0;
     }
 
 }

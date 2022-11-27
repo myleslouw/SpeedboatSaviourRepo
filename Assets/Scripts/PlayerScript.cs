@@ -109,6 +109,14 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            DamageBoat();
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         //otherwise it has collided with something solid and must make a sound

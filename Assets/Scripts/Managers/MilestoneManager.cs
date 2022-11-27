@@ -6,27 +6,6 @@ public class MilestoneManager : MonoBehaviour
 {
     public int currentMilestone;
 
-    public static MilestoneManager Instance
-    {
-        get { return instance; }
-        set { }
-    }
-
-    private static MilestoneManager instance = null;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            DestroyImmediate(gameObject);
-        }
-    }
-
     private void Start()
     {
         currentMilestone = GameManager.Level;

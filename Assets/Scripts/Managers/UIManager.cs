@@ -19,6 +19,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject questBox;
     [SerializeField] GameObject NewMilestoneNotification;
 
+    Inventory inventory;    //ref
+
     // Start is called before the first frame update
 
     private void Start()
@@ -46,7 +48,7 @@ public class UIManager : MonoBehaviour
 
         questBox.SetActive(false);
         NewMilestoneNotification.SetActive(false);
-
+        inventory = GetComponent<Inventory>();
     }
 
     private void CreateCounters()
@@ -82,7 +84,7 @@ public class UIManager : MonoBehaviour
     {
         //gets the UI components based on the type and then displays the types inventory count
 
-        TypeCounters[polObjType].text = Inventory.Instance.PollutantInventory[polObjType].ToString();
+        TypeCounters[polObjType].text = inventory.PollutantInventory[polObjType].ToString();
     }
 
     private void CompleteQuestUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -143,10 +145,10 @@ public class UIManager : MonoBehaviour
     private void GameOverUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
         //turns off some UI components after death so they dont show in the next scene
-        durabiltySlider.gameObject.SetActive(false);
-        fuelSlider.gameObject.SetActive(false);
-        LevelUI.SetActive(false);
-        InventoryUI.SetActive(false);
+        //durabiltySlider.gameObject.SetActive(false);
+        //fuelSlider.gameObject.SetActive(false);
+        //LevelUI.SetActive(false);
+        //InventoryUI.SetActive(false);
 
     }
 }
