@@ -134,10 +134,11 @@ public class PlayerScript : MonoBehaviour
             EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.NPC_LEAVE, this, this.transform);
 
             //if the NPC has a quest it will start
-            if (other.gameObject.GetComponent<QuestGiver>())
+            if (other.gameObject.TryGetComponent(out QuestGiver questGiver))
             {
-                print("Starting Quest");
-                
+                //trigger sthe event
+                EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.START_QUEST, this, questGiver);
+
             }
         }
 

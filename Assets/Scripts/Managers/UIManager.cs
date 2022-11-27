@@ -7,6 +7,7 @@ using TMPro;
 public class UIManager : MonoBehaviour
 {
     [SerializeField] Text glassCounter, plasticCounter, generalWasteCounter;
+    [SerializeField] Text QuestglassCounter, QuestplasticCounter, QuestgeneralWasteCounter;
     private Dictionary<PollutantType.type, Text> TypeCounters;
     [SerializeField] TextMeshProUGUI levelNum;
     public GameObject Milestone;
@@ -15,6 +16,7 @@ public class UIManager : MonoBehaviour
     public Slider fuelSlider;
     [SerializeField] GameObject InventoryUI;
     [SerializeField] GameObject LevelUI;
+    [SerializeField] GameObject questBox;
 
     // Start is called before the first frame update
 
@@ -34,11 +36,17 @@ public class UIManager : MonoBehaviour
         EventManager.OnDelegateEvent LevelUpDelegate = LevelUpUI;
         EventManager.OnDelegateEvent GameStartDelegate = GameStartUI;
         EventManager.OnDelegateEvent GameOverDelegate = GameOverUI;
+        EventManager.OnDelegateEvent ShowQuestDelegate = ShowQuest;
+        EventManager.OnDelegateEvent HideQuestDelegate = HideQuest;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.PICKUP_UI, IncrementDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_UI, ResetDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.LEVEL_UP, LevelUpDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, GameStartDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_END, GameOverDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.START_QUEST, ShowQuestDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, HideQuestDelegate);
+
+        questBox.SetActive(false);
     }
 
     private void CreateCounters()
@@ -100,6 +108,22 @@ public class UIManager : MonoBehaviour
         Milestone.SetActive(false);
 
         audioManager.Play("WaveAmbience");
+    }
+
+    public void ShowQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //get quiest info from event
+        QuestGiver questGiver = (QuestGiver)Params;
+
+        questBox.SetActive(true);
+        //set the counters to the amount need for the quest
+        QuestglassCounter.text = questGiver.questObj.GlassRequirement.ToString();
+        QuestplasticCounter.text = questGiver.questObj.PlasticRequirement.ToString();
+        QuestgeneralWasteCounter.text = questGiver.questObj.GWRequirement.ToString();
+    }
+    public void HideQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        questBox.SetActive(false);
     }
 
     private void GameStartUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
