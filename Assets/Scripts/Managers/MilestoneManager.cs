@@ -41,7 +41,7 @@ public class MilestoneManager : MonoBehaviour
         //for testing
         if (Input.GetKeyDown(KeyCode.Equals))
         {
-            LevelUp(EventManager.EVENT_TYPE.COMPLETE_QUEST, null, null);
+            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, GameManager.Level + 1);
         }
     }
 
