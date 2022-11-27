@@ -106,9 +106,6 @@ public class Inventory : MonoBehaviour
             //ADD CREDITS TO THE INVENTORY
             AddCreditsToInventory(recycler);
 
-            //ADD XP event
-            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.ADD_XP, this, recycler);
-
             //sets the types amount in inv to 0
             PollutantInventory[recycler.recyclerType] = 0;
 

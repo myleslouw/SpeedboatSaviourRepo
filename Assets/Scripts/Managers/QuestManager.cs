@@ -5,6 +5,7 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
     private QuestObject currentQuest;
+    public bool questActive;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,24 +22,31 @@ public class QuestManager : MonoBehaviour
     {
         QuestGiver giver = (QuestGiver)Params;
         currentQuest = giver.questObj;
+        questActive = true;
     }
 
-    public void CompleteQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    public void CompleteQuest()
     {
         print("Quest Complete");
-        //show the quest in UI
+        questActive = false;
+        //trigger the milestone
+        EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, GameManager.Level + 1);
     }
 
     public void CheckQuestProgress(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
     {
-        //checks if the number in the inventory is equal or more than the number required for the quest
-        bool glassComplete = CheckAmount(PollutantType.type.Glass, currentQuest.GlassRequirement);
-        bool gwComplete = CheckAmount(PollutantType.type.GeneralWaste, currentQuest.GWRequirement);
-        bool plasticComplete = CheckAmount(PollutantType.type.Plastic, currentQuest.PlasticRequirement);
-
-        if (glassComplete == gwComplete && gwComplete == plasticComplete && plasticComplete == true)
+        //check the progress if there is a quest active
+        if (questActive)
         {
-            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, null);
+            //checks if the number in the inventory is equal or more than the number required for the quest
+            bool glassComplete = CheckAmount(PollutantType.type.Glass, currentQuest.GlassRequirement);
+            bool gwComplete = CheckAmount(PollutantType.type.GeneralWaste, currentQuest.GWRequirement);
+            bool plasticComplete = CheckAmount(PollutantType.type.Plastic, currentQuest.PlasticRequirement);
+
+            if (glassComplete == gwComplete && gwComplete == plasticComplete && plasticComplete == true)
+            {
+                CompleteQuest();
+            }
         }
     }
 
