@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Remy
   m_EditorClassIdentifier: 
-  npcName: 
-  sentences: []
+  npcName: Remy
+  sentences:
+  - "Look at this! All this trash polluting our water! The Water Babies can\u2019t
+    let this slide."
+  - Hi there, I can help you if you want.
+  - "Wait, aren\u2019t you that kid who cleaned Shell Pond? You did a fantastic job!"
+  - "Thanks! I\u2019m just doing my part for the village."
+  - "Well, I\u2019m a representative for the Water Babies and we\u2019ve been hearing
+    a lot about you! We\u2019d love it if you joined our team!"
+  - Really? Me?
+  - Yes! Your first job would be cleaning this disgusting pond. Can you do that?
+  - "Of course! Thanks so much for the opportunity, I\u2019m in!"
+  - Fantastic! The pollution has affected our water drinking and food supply. All
+    the fish are dying or leaving the area.
+  - "Don\u2019t worry, I\u2019ve done it before, and I can do it again! It will be
+    spotless when I\u2019m done."
+  - "Thank you! Villagers are running out of clothes and haven\u2019t been able to
+    wash their laundry since the water is so dirty."
+  - Soon they can!
   rewardAfter: 0

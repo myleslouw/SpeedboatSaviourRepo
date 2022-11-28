@@ -12,9 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Vic
   m_EditorClassIdentifier: 
-  npcName: Vic
+  npcName: Vic Shown
   sentences:
-  - <<<News Dialogue goes here>>>
-  - <<<News Dialogue goes here>>>
-  - <<<News Dialogue goes here>>>
+  - "Hey there, kid! You are really making \u201Cwaves\u201D in your village! You
+    know, have you heard about the Water Babies? I think you\u2019d fit in well there."
+  - "Yes, I have been doing my part to improve the village. How did you hear about
+    me so quickly? It\u2019s only been five minutes."
+  - "The name\u2019s James. I work for the *Newspaper Name*, it\u2019s my job to
+    know everything going on in the area before it even happens!"
+  - "Before it happens? That\u2019s not possible."
+  - "How do you think that newspaper article was released only a split second after
+    you finished cleaning the river? It\u2019s a competitive business."
+  - ...
+  - "So anyway, it seems this place is in dire need of a cleanup. Can\u2019t call
+    it Coral Creek if all the coral die, can we?"
+  - "Right, I\u2019ll get cleaning. It was\u2026interesting meeting you."
+  - A delight meeting you too! Oh and, when you are done cleaning the area come back
+    to me so I can write a report! I need the commission, man.
+  - "Right, I\u2019ll be sure to return as soon as I\u2019m done."
+  - "I\u2019m going to need you to come back to me after every job you complete so
+    that I can keep the reports up to date. The people love following your journey!"
+  - Um, okay. Will do, I guess.
+  - "You know, you should really consider upgrading your boat. The waters further
+    down are brutal. That thing won\u2019t hold up long. I recommend going across
+    the river to speak to Pete, he\u2019ll help you out with a new boat for a good
+    price."
+  - "Oh thanks! I didn\u2019t even think about that. I\u2019ll go see him right now."
   rewardAfter: 0

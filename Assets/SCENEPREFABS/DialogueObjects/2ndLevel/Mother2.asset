@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Mother2
   m_EditorClassIdentifier: 
-  npcName: 
-  sentences: []
+  npcName: Mother
+  sentences:
+  - "Good job, my child! Keep it up, I\u2019m so proud of you!"
   rewardAfter: 0
