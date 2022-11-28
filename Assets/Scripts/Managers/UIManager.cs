@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text QuestglassCounter, QuestplasticCounter, QuestgeneralWasteCounter;
     private Dictionary<PollutantType.type, Text> TypeCounters;
     public GameObject Milestone;
+    public Image NewspaperArticle;
     AudioManager audioManager;
     public Slider durabiltySlider;
     public Slider fuelSlider;
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject NewMilestoneNotification;
 
     Inventory inventory;    //ref
-
+    MilestoneManager milestoneManager; //ref
     // Start is called before the first frame update
 
     private void Start()
@@ -39,16 +40,19 @@ public class UIManager : MonoBehaviour
         EventManager.OnDelegateEvent GameOverDelegate = GameOverUI;
         EventManager.OnDelegateEvent ShowQuestDelegate = ShowQuest;
         EventManager.OnDelegateEvent CompleteQuestDelegate = CompleteQuestUI;
+        EventManager.OnDelegateEvent ShowMilestoneDelegate = ShowMilestone;
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.PICKUP_UI, IncrementDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_UI, ResetDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, GameStartDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_END, GameOverDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.START_QUEST, ShowQuestDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.COMPLETE_QUEST, CompleteQuestDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.SHOW_MILESTONE, ShowMilestoneDelegate);
 
         questBox.SetActive(false);
         NewMilestoneNotification.SetActive(false);
         inventory = GetComponent<Inventory>();
+        milestoneManager = GetComponent<MilestoneManager>();
     }
 
     private void CreateCounters()
@@ -103,6 +107,18 @@ public class UIManager : MonoBehaviour
         StartCoroutine(WaitTillPlay());
     }
 
+    private void ShowMilestone(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //change the UI to show new level
+        NewMilestoneNotification.SetActive(false);
+        Reporter reporter = (Reporter)Params;
+        NewspaperArticle.sprite = reporter.NewspaperArticles[milestoneManager.currentMilestone - 1];
+        Milestone.SetActive(true);
+        //play sound
+        audioManager.Play("MilestoneSound");
+
+    }
+
     IEnumerator WaitTillPlay()
     {
         yield return new WaitForSeconds(0.5f);
@@ -117,7 +133,9 @@ public class UIManager : MonoBehaviour
     {
         Milestone.SetActive(false);
 
-        audioManager.Play("WaveAmbience");
+        audioManager.Play("CloseMilestone");
+
+        StartCoroutine(WaitTillPlay());
     }
 
     public void ShowQuest(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
