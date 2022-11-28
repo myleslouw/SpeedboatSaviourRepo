@@ -11,6 +11,7 @@ TagManager:
   - Pollutant
   - PollutantRecycler
   - Barricade
+  - BuyingStation
   layers:
   - Default
   - TransparentFX
