@@ -18,8 +18,11 @@ public class ColourChanger : MonoBehaviour
     Color Shallow4thColour = new Color(0.081f, 0.281f, 0.459f, 0.247f);
     Color Deep4thColour = new Color(0.033f, 0.408f, 0.472f, 0.537f);
 
-    Color ShallowEndColour = new Color(0.118f, 0.925f, 0.840f, 0.808f);
-    Color DeepEndColour = new Color(0.027f, 0.564f, 0.811f, 0.537f);
+    Color Shallow5thColour = new Color(0.118f, 0.925f, 0.840f, 0.808f);
+    Color Deep5thColour = new Color(0.027f, 0.564f, 0.811f, 0.537f);
+
+    Color ShallowEndColour = new Color(0.118f, 0.925f, 0.840f, 0.333f);
+    Color DeepEndColour = new Color(0.027f, 0.564f, 0.811f, 0.843f);
 
     private Animal_WanderScript wanderScript;
 
@@ -66,11 +69,16 @@ public class ColourChanger : MonoBehaviour
                 Mesh.material.SetColor("ShallowWater", Shallow3rdColour);
                 Mesh.material.SetColor("DeepWater", Deep3rdColour);
                 break;
-            case 4:
+            case 3:
                 Mesh.material.SetColor("ShallowWater", Shallow4thColour);
                 Mesh.material.SetColor("DeepWater", Deep4thColour);
                 break;
-            default:
+            case 4:
+                Mesh.material.SetColor("ShallowWater", Shallow5thColour);
+                Mesh.material.SetColor("DeepWater", Deep5thColour);
+                break;
+            case 5:
+                print("end");
                 Mesh.material.SetColor("ShallowWater", ShallowEndColour);
                 Mesh.material.SetColor("DeepWater", DeepEndColour);
                 break;
