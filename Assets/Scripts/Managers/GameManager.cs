@@ -13,6 +13,10 @@ public class GameManager : MonoBehaviour
     public Slider FuelSlider;
     public int currentBoatIndex;
     [SerializeField] GameObject[] BoatSelection;
+    [SerializeField] GameObject[] DisplayBoats;
+    [SerializeField] GameObject[] LockedIcons;
+    [SerializeField] GameObject[] UnlockedIcons;
+
     public Boat currentBoat;
     public bool OilPickupObtained;
 
@@ -46,6 +50,11 @@ public class GameManager : MonoBehaviour
         }
         //sets prev boat to inactive
         BoatSelection[currentBoatIndex - 1].SetActive(false);
+        //hides the display version
+        DisplayBoats[currentBoatIndex - 1].SetActive(false);
+        LockedIcons[currentBoatIndex - 1].SetActive(false);
+        UnlockedIcons[currentBoatIndex - 1].SetActive(true);
+
         SetBoat(currentBoatIndex);
     }
 
