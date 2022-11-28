@@ -20,11 +20,13 @@ public class Inventory : MonoBehaviour
         EventManager.OnDelegateEvent AddOilDelegate = AddOilToInventory;
         EventManager.OnDelegateEvent RecyclePollutantDelegate = RecycleType;
         EventManager.OnDelegateEvent GameEndDelegate = GameEndInventory;
+        EventManager.OnDelegateEvent BuyingDelegate = TryBuyBoat;
 
         //becomes a listener for the POLLUTANT_PICKUP event
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.POLLUTANT_PICKUP, AddPollutantDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.OIL_PICKUP, AddOilDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.RECYCLE_POLLUTANT, RecyclePollutantDelegate);
+        EventManager.Instance.AddListener(EventManager.EVENT_TYPE.BOAT_SHOPPING, BuyingDelegate);
     }
 
     private void CreateInventory()
@@ -63,6 +65,18 @@ public class Inventory : MonoBehaviour
     {
         //adds credits (typeReward x the amount of that type)
         Credits += (recycler.Reward * PollutantInventory[recycler.recyclerType]);
+    }
+
+    private void TryBuyBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
+    {
+        //gets the price of the boat
+        int boatPrice = (int)Params;
+
+        if (Credits >= boatPrice)
+        {
+            //if the player has enough
+            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.UPGRADE_BOAT, this, null);
+        }
     }
 
     private void AddOilToInventory(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)

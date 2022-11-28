@@ -61,7 +61,7 @@ public class DialogueManager : MonoBehaviour
                         //if there is a reward from completing the dialogue
                         //rewards will be in a dictionary and the a key will be used from the OBj to the dictionary
                         Destroy(NPCinRange.gameObject);
-                        EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.UPGRADE_BOAT, this, null);
+                        //EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.UPGRADE_BOAT, this, null);
                     }
 
                     //stop the dialogue and undo 
