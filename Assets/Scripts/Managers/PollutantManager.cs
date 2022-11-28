@@ -13,7 +13,7 @@ public class PollutantManager : MonoBehaviour
     [SerializeField] Transform[] polltantSpawnPoints;       //a centre point (the pollutants spawn in a radius around)
 
     //the radius of the trash spawn in an area
-    private int[] spawnRadiusArray = new int[] { 10, 20, 40, 25};
+    private int[] spawnRadiusArray = new int[] { 10, 20, 40, 25 };
 
     const float WATERHEIGHT = 0.7f;  //height of water so pollutants look like theyre floating
 
@@ -87,20 +87,25 @@ public class PollutantManager : MonoBehaviour
     {
         //spawn point changes depending on level
         //spawn radius changes depending on level
-         for (int i = 0; i < 10; i++)
+        if (!(currentLevelNum > 4))
         {
-            //creates a pollutant
-            Pollutant spawnedObj = new Pollutant();
-            //a transform has a radius of 10 around it
-            //a new position is created within that circle
-            Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[currentLevelNum]) + new Vector2(polltantSpawnPoints[currentLevelNum].position.x, polltantSpawnPoints[currentLevelNum].position.z);
-            //randoms a pollutant and spawns it at the new position
 
-            //INCLUDE SPAWN RATE
-            spawnedObj = Instantiate(PollutantOptions[SpawnRateCalculator(currentLevelNum)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
-            activePollutants.Add(spawnedObj);
+
+            for (int i = 0; i < 10; i++)
+            {
+                //creates a pollutant
+                Pollutant spawnedObj = new Pollutant();
+                //a transform has a radius of 10 around it
+                //a new position is created within that circle
+                Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[currentLevelNum]) + new Vector2(polltantSpawnPoints[currentLevelNum].position.x, polltantSpawnPoints[currentLevelNum].position.z);
+                //randoms a pollutant and spawns it at the new position
+
+                //INCLUDE SPAWN RATE
+                spawnedObj = Instantiate(PollutantOptions[SpawnRateCalculator(currentLevelNum)], new Vector3(newPosition.x, WATERHEIGHT, newPosition.y), Quaternion.identity);
+                activePollutants.Add(spawnedObj);
+            }
         }
-        
+
     }
 
     public void NextLevel(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -117,7 +122,7 @@ public class PollutantManager : MonoBehaviour
 
         //spawns the pollutants for the next level
         BatchSpawnPollutant();
-        
+
     }
 
     private int SpawnRateCalculator(int levelNum)
