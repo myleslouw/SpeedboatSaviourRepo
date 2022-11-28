@@ -74,8 +74,9 @@ public class Inventory : MonoBehaviour
 
         if (Credits >= boatPrice)
         {
+            print("BOUGHT!!");
             //if the player has enough
-            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.UPGRADE_BOAT, this, null);
+            EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.UPGRADE_BOAT, this, GetComponent<GameManager>().currentBoatIndex);
         }
     }
 
