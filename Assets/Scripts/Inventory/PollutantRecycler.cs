@@ -15,10 +15,10 @@ public class PollutantRecycler : MonoBehaviour
                 Reward = 10;
                 break;
             case PollutantType.type.Plastic:
-                Reward = 25;
+                Reward = 50;
                 break;
             case PollutantType.type.GeneralWaste:
-                Reward = 50;
+                Reward = 25;
                 break;
             default:
                 break;
