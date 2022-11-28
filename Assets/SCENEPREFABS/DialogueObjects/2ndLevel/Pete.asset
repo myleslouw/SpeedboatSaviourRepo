@@ -12,9 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Pete
   m_EditorClassIdentifier: 
-  npcName: Pete Starboard - Mechanic
+  npcName: Pete Starboard
   sentences:
-  - Hey, I'm Pete, I work on the boats around here. If you can help us, I'll give
-    you something worth while.
-  - I'll keep that in mind, Cheers Pete
+  - "Hi, you must be Mary\u2019s kid! She\u2019s told me a lot about you. My name\u2019s
+    Pete. I\u2019ll guide you through all things boat-related!"
+  - Hi, nice to finally meet you, Pete. The reporter said I should come see you about
+    boat upgrades.
+  - "Oh, that James fella is an odd one\u2026 he just pops up everywhere. But yes,
+    you\u2019ve come to the right place if you want a good deal on a new boat!"
+  - How does it work exactly?
+  - You will gradually accumulate coins throughout your journeys which you can save
+    up to buy an upgraded boat! They are stronger, faster, bigger, more durable,
+    and of course super cool-looking! These sweet rides do it all!
+  - Sign me up! Let me see the options!
+  - Check out the boat signs right next to me for a neat selection of upgrades.
+  - "Thanks! But\u2026what do I do with all this trash? It\u2019s taking up so much
+    space and it stinks!"
+  - "Simple. Just head to the recycle bins across the pond and dump \u2018em in the
+    correct bins."
+  - Best I get to it then.
+  - Wait, have you ever thought about joining the Water Babies? They could use someone
+    as efficient as you.
+  - Really? You think so?
+  - "\u2018Course I do! Something to think about. You should know, we have barricaded
+    the ponds and rivers off from each other to prevent pollution from spreading. "
+  - "It clearly hasn\u2019t fixed anything but sure is prolonging the inevitable!"
+  - 'How about we help each other out. You continue to clean the water for the villagers,
+    and I will remove each barricade for you as soon as you finish cleaning a specific
+    area. '
+  - Great! Thanks!
+  - No problem. Now run along!
   rewardAfter: 0

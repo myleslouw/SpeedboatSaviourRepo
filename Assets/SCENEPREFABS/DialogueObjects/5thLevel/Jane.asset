@@ -12,6 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f08071ba53a644b4e9c9b2b60070b608, type: 3}
   m_Name: Jane
   m_EditorClassIdentifier: 
-  npcName: 
-  sentences: []
+  npcName: Jane
+  sentences:
+  - "Woaw, kid. You need to turn around and head back. These waters aren\u2019t safe."
+  - "I\u2019m here to clean the water!"
+  - HAHA! You? Clean? THIS water? Not going to happen, kid, sorry.
+  - "I\u2019m part of the Water Babies, it\u2019s what I do."
+  - "You will need more than just one kid to clean this lake. It\u2019s called black
+    lake for a reason. The pollution runs so deep, the water is charcoal black and
+    thick as blood."
+  - Trust me, my boat is the best of the best! I can do it.
+  - "Kid, I can\u2019t force you not to go in there, but I\u2019m warning you. People
+    have gone in and never returned due to the high levels of pollution."
+  - "Thank you for your warning! But I can handle it. Don\u2019t worry."
   rewardAfter: 0
