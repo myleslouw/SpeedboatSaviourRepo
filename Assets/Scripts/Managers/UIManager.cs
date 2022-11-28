@@ -20,6 +20,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject questBox;
     [SerializeField] GameObject NewMilestoneNotification;
     [SerializeField] TextMeshProUGUI creditCount;
+    public GameObject AWARE;
 
     Inventory inventory;    //ref
     MilestoneManager milestoneManager; //ref
@@ -55,6 +56,8 @@ public class UIManager : MonoBehaviour
         inventory = GetComponent<Inventory>();
         milestoneManager = GetComponent<MilestoneManager>();
         UpdateCreditCount();
+
+        AWARE.SetActive(false);
     }
 
     private void CreateCounters()
@@ -111,6 +114,7 @@ public class UIManager : MonoBehaviour
 
         //show Milestone notification
         NewMilestoneNotification.SetActive(true);
+        AWARE.SetActive(true);
 
         //waits a bit and then plays the waves
         //PlayWavesAfterMilestone();
@@ -121,6 +125,7 @@ public class UIManager : MonoBehaviour
     {
         //change the UI to show new level
         NewMilestoneNotification.SetActive(false);
+        AWARE.SetActive(false);
         Reporter reporter = (Reporter)Params;
         NewspaperArticle.sprite = reporter.NewspaperArticles[milestoneManager.currentMilestone - 1];
         Milestone.SetActive(true);
