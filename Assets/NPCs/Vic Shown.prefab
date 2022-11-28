@@ -557,8 +557,8 @@ GameObject:
   - component: {fileID: 5220068979925779185}
   - component: {fileID: 6772844378517593100}
   - component: {fileID: 7910282661673505150}
-  - component: {fileID: 2171614214959948561}
   - component: {fileID: 3228749824457301984}
+  - component: {fileID: 7131669781082540937}
   m_Layer: 0
   m_Name: Vic Shown
   m_TagString: Untagged
@@ -637,20 +637,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd4a5097607b654fb7ce3d827aa6d9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2171614214959948561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1574735313430807089}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42d1a20ec2832834d891ced14384bbb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questObj: {fileID: 0}
-  completed: 0
 --- !u!135 &3228749824457301984
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -663,7 +649,23 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 1.38}
+--- !u!114 &7131669781082540937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574735313430807089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dced521c24a5f5408c1d9e8a1e3a1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NewspaperArticles:
+  - {fileID: 21300000, guid: 80a1a45681c1e7e4598387e12dd68bad, type: 3}
+  MilestoneShown: 0
+  MilestoneReady: 0
 --- !u!1 &1646031033740949558
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,6 +1051,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5489038031048519194}
   - component: {fileID: 6647259897034234674}
+  - component: {fileID: 7694633196174324482}
   m_Layer: 0
   m_Name: CM vcam Vic
   m_TagString: Untagged
@@ -1106,6 +1109,14 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1702445665896870365}
+--- !u!81 &7694633196174324482
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884394273203410113}
+  m_Enabled: 1
 --- !u!1 &3045527942012444031
 GameObject:
   m_ObjectHideFlags: 0

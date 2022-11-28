@@ -165,6 +165,23 @@ public class PlayerScript : MonoBehaviour
                 }
 
             }
+
+            //if the NPC os tje reporter it will show the milestone
+            if (other.gameObject.TryGetComponent(out Reporter reporter))
+            {
+                //if the quest hasnt been done
+                if (reporter.MilestoneReady)
+                {
+                    if (!reporter.MilestoneShown)
+                    {
+
+                    }
+                    print("Should PLay milestone");
+                    //trigger sthe event
+                    EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.SHOW_MILESTONE, this, reporter);
+                }
+
+            }
         }
 
         //stop damaging boat

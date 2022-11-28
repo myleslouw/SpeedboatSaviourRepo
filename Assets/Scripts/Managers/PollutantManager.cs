@@ -26,7 +26,7 @@ public class PollutantManager : MonoBehaviour
     private Dictionary<int, int[]> spawnRatios = new Dictionary<int, int[]>
     {
 //      lvl             G   gw  P
-        {0 , new int[] { 80, 81, 101} },
+        {0 , new int[] { 50, 100, 101} },
         {1 , new int[] { 50, 100, 101} },
         {2 , new int[] { 45, 90, 100} },
         {3 , new int[] { 15, 30, 100} },
