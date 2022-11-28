@@ -664,7 +664,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NewspaperArticles:
-  - {fileID: 21300000, guid: 80a1a45681c1e7e4598387e12dd68bad, type: 3}
+  - {fileID: 21300000, guid: b55b2d34f7b492d449175c484c7d421c, type: 3}
+  - {fileID: 21300000, guid: 0169daa34ee4c614d92035eff0d01ee9, type: 3}
+  - {fileID: 21300000, guid: b55b2d34f7b492d449175c484c7d421c, type: 3}
+  - {fileID: 21300000, guid: 0169daa34ee4c614d92035eff0d01ee9, type: 3}
+  - {fileID: 21300000, guid: b55b2d34f7b492d449175c484c7d421c, type: 3}
+  - {fileID: 21300000, guid: 0169daa34ee4c614d92035eff0d01ee9, type: 3}
   MilestoneShown: 0
   MilestoneReady: 0
 --- !u!1 &1646031033740949558
