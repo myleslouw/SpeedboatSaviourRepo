@@ -19,6 +19,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject LevelUI;
     [SerializeField] GameObject questBox;
     [SerializeField] GameObject NewMilestoneNotification;
+    [SerializeField] TextMeshProUGUI creditCount;
 
     Inventory inventory;    //ref
     MilestoneManager milestoneManager; //ref
@@ -53,6 +54,7 @@ public class UIManager : MonoBehaviour
         NewMilestoneNotification.SetActive(false);
         inventory = GetComponent<Inventory>();
         milestoneManager = GetComponent<MilestoneManager>();
+        UpdateCreditCount();
     }
 
     private void CreateCounters()
@@ -82,6 +84,7 @@ public class UIManager : MonoBehaviour
         //upon recycling the inv amount for a type will be 0 so it will be updated
         PollutantRecycler recycler = (PollutantRecycler)Params;
         UpdatePollutantCount(recycler.recyclerType);
+        UpdateCreditCount();
     }
 
     private void UpdatePollutantCount(PollutantType.type polObjType)
@@ -89,6 +92,13 @@ public class UIManager : MonoBehaviour
         //gets the UI components based on the type and then displays the types inventory count
 
         TypeCounters[polObjType].text = inventory.PollutantInventory[polObjType].ToString();
+    }
+
+    private void UpdateCreditCount()
+    {
+        //gets the UI components based on the type and then displays the types inventory count
+
+        creditCount.text = inventory.Credits.ToString();
     }
 
     private void CompleteQuestUI(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
