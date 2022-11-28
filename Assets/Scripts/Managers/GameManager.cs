@@ -40,6 +40,11 @@ public class GameManager : MonoBehaviour
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.UPGRADE_BOAT, NewBoatDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_START, GameStartBoatDelegate);
         EventManager.Instance.AddListener(EventManager.EVENT_TYPE.GAME_END, GameEndDelegate);
+        LockedIcons[0].SetActive(true);
+        LockedIcons[1].SetActive(true);
+        UnlockedIcons[0].SetActive(false);
+        UnlockedIcons[1].SetActive(false);
+        
     }
 
     public void ChangeBoat(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour
         //sets prev boat to inactive
         BoatSelection[currentBoatIndex - 1].SetActive(false);
         //hides the display version
-        DisplayBoats[currentBoatIndex - 1].SetActive(false);
+        DisplayBoats[0].SetActive(false);
         LockedIcons[currentBoatIndex - 1].SetActive(false);
         UnlockedIcons[currentBoatIndex - 1].SetActive(true);
 

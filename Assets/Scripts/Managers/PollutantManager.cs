@@ -90,7 +90,6 @@ public class PollutantManager : MonoBehaviour
         if (!(currentLevelNum > 4))
         {
 
-
             for (int i = 0; i < 10; i++)
             {
                 //creates a pollutant
