@@ -87,19 +87,16 @@ public class PollutantManager : MonoBehaviour
     {
         //spawn point changes depending on level
         //spawn radius changes depending on level
-        print(currentLevelNum);
-        for (int i = 0; i < 10; i++)
+        if (!(currentLevelNum > 4))
         {
-            //creates a pollutant
-            Pollutant spawnedObj = new Pollutant();
-            //a transform has a radius of 10 around it
-            //a new position is created within that circle
-            if (currentLevelNum > 4)
+
+
+            for (int i = 0; i < 10; i++)
             {
-                //stop printing after all areas
-            }
-            else
-            {
+                //creates a pollutant
+                Pollutant spawnedObj = new Pollutant();
+                //a transform has a radius of 10 around it
+                //a new position is created within that circle
                 Vector2 newPosition = (Random.insideUnitCircle * spawnRadiusArray[currentLevelNum]) + new Vector2(polltantSpawnPoints[currentLevelNum].position.x, polltantSpawnPoints[currentLevelNum].position.z);
                 //randoms a pollutant and spawns it at the new position
 
