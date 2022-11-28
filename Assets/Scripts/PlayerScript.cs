@@ -106,6 +106,12 @@ public class PlayerScript : MonoBehaviour
                 InvokeRepeating("FuelBoat", 0.0f, 0.5f);
             }
 
+            if (collisionObj.CompareTag("BuyingStation"))
+            {
+                //triggers the shopping method to check if there is enough to buy
+                EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.BOAT_SHOPPING, this, collisionObj.GetComponent<BuyingStation>().BoatPrice);
+            }
+
         }
     }
 
