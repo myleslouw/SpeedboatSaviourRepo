@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
+    public delegate void SetLevelActive();
+    public static event SetLevelActive OnLevelActive;
+    
     private QuestGiver currentQuestGiver;
     public bool questActive;
 
@@ -35,6 +38,7 @@ public class QuestManager : MonoBehaviour
         currentQuestGiver.completed = true;
         //trigger the milestone
         EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, GameManager.Level + 1);
+        OnLevelActive?.Invoke();
     }
 
     public void CheckQuestProgress(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)
