@@ -28,7 +28,6 @@ public class NPCAnim : MonoBehaviour
     {
         _currentState = newState;
 
-        print(newState);
         
         if (_currentState == NPCState.IDLE)
         {
