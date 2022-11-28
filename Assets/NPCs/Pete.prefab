@@ -919,6 +919,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2541078720840879480}
   - component: {fileID: 8476783260422870786}
+  - component: {fileID: 8706359503214207793}
+  - component: {fileID: 3879268022021472026}
+  - component: {fileID: 4055230082294954516}
+  - component: {fileID: 7804654133218437589}
   m_Layer: 0
   m_Name: Pete
   m_TagString: Untagged
@@ -935,7 +939,7 @@ Transform:
   m_GameObject: {fileID: 2884671073347311554}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children:
   - {fileID: 8143555125681421485}
   - {fileID: 4597410019666623240}
@@ -960,7 +964,7 @@ Animator:
   m_GameObject: {fileID: 2884671073347311554}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: b419776b63f429d4f9e87603083f7dd9, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 44ea8b8c65e0fa841b5054cbaecc13ab, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -969,6 +973,60 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!135 &8706359503214207793
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884671073347311554}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3879268022021472026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884671073347311554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd4a5097607b654fb7ce3d827aa6d9e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4055230082294954516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884671073347311554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f10c97cb0054e1b4988dfc994450848d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcCamera: {fileID: 5085943663084167536}
+  dialogue: {fileID: 11400000, guid: 4b57700a179c6674285778b71187e438, type: 2}
+  npcName: Pete
+--- !u!114 &7804654133218437589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884671073347311554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d1a20ec2832834d891ced14384bbb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  questObj: {fileID: 11400000, guid: 110560ab8445ad9469f880455634d729, type: 2}
+  completed: 0
 --- !u!1 &3110929910196513617
 GameObject:
   m_ObjectHideFlags: 0
