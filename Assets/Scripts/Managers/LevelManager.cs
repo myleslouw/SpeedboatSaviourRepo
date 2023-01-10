@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    public GameObject[] LevelItems;          //holds all the items in the leve (the index is the level num)
+    public GameObject[] LevelItems;          //holds all the items in the level (the index is the level num)
 
     // Start is called before the first frame update
     void Start()

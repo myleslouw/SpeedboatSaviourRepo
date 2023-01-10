@@ -17,7 +17,7 @@ public class PollutantManager : MonoBehaviour
 
     const float WATERHEIGHT = 0.7f;  //height of water so pollutants look like theyre floating
 
-    private int currentLevelNum = 0;
+    [SerializeField] private int currentLevelNum = 0;
 
     System.Random rand = new System.Random();
 
@@ -28,9 +28,9 @@ public class PollutantManager : MonoBehaviour
 //      lvl             G   gw  P
         {0 , new int[] { 50, 100, 101} },
         {1 , new int[] { 50, 100, 101} },
-        {2 , new int[] { 45, 90, 100} },
+        {2 , new int[] { 40, 80, 100} },
         {3 , new int[] { 15, 30, 100} },
-        {4 , new int[] {33, 66, 100} },
+        {4 , new int[] { 33, 66, 100} },
 
     };
 
@@ -87,7 +87,7 @@ public class PollutantManager : MonoBehaviour
     {
         //spawn point changes depending on level
         //spawn radius changes depending on level
-        if (!(currentLevelNum > 4))
+        if (!(currentLevelNum > 6))
         {
 
             for (int i = 0; i < 10; i++)
@@ -128,23 +128,27 @@ public class PollutantManager : MonoBehaviour
     {
         //gets a pollutant type based on the ratio at which they spawn in the each level
         int rndm = rand.Next(1, 100);
-
+        Debug.Log($"Randomly generated number for pollutants: {rndm}");
+        
         //checks glass spawn probability for that level
-        if (1 <= rndm && rndm <= spawnRatios[levelNum][0])
+        if (rndm <= spawnRatios[levelNum][0])
         {
             //return glass
+            //Debug.Log($"Spawned Glass: {rndm}");
             return 0;
         }
         //checks gw probability
-        else if (spawnRatios[levelNum][0] <= rndm && rndm <= spawnRatios[levelNum][2])
+        if (rndm > spawnRatios[levelNum][0] && rndm <= spawnRatios[levelNum][1])
         {
             int rndmGW = rand.Next(1, 4);
+            //Debug.Log($"Spawned General Waste: {rndm}");
             return rndmGW;
         }
         //otherwise spawns plastic
-        else
+        else if(rndm > spawnRatios[levelNum][1] && rndm <= spawnRatios[levelNum][2]);
         {
             int rndmPlastic = rand.Next(4, 8);
+            //Debug.Log($"Spawned Plastic: {rndm}");
             return rndmPlastic;
         }
     }

@@ -54,7 +54,7 @@ public class EventManager : MonoBehaviour
     //listener = the objects to listen for the event
     //takes the listeners and puts the eventType on it
     //each event has a list of listeners, if there is a list for that eventType it will add, otherwise it will create one
-    public void AddListener(EVENT_TYPE eventType, OnDelegateEvent Listener)
+    public void AddListener(EVENT_TYPE eventType, OnDelegateEvent listener)
     {
         //list of listeners for this event
         List<OnDelegateEvent> ListenList = null;
@@ -64,13 +64,13 @@ public class EventManager : MonoBehaviour
         if (eventListeners.TryGetValue(eventType, out ListenList))
         {
             //list exists so add the listener
-            ListenList.Add(Listener);
+            ListenList.Add(listener);
             return;
         }
 
         //otherwise create a new list as dictionary key for that event type
         ListenList = new List<OnDelegateEvent>();
-        ListenList.Add(Listener);
+        ListenList.Add(listener);
         eventListeners.Add(eventType, ListenList);
     }
 

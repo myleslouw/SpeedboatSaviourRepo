@@ -18,7 +18,7 @@ public class LevelsFinished : MonoBehaviour
         QuestManager.OnLevelActive -= ActivateLevel;
     }
 
-    private void Start()
+    private void Awake()
     {
         for (int i = 0; i < finishedLevels.Length; i++)
         {

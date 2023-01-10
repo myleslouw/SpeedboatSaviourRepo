@@ -39,6 +39,7 @@ public class QuestManager : MonoBehaviour
         //trigger the milestone
         EventManager.Instance.PostEventNotification(EventManager.EVENT_TYPE.COMPLETE_QUEST, this, GameManager.Level + 1);
         OnLevelActive?.Invoke();
+        Debug.Log("Quest Completed");
     }
 
     public void CheckQuestProgress(EventManager.EVENT_TYPE eventType, Component sender, object Params = null)

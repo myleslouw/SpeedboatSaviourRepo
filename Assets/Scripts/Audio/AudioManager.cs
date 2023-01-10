@@ -66,7 +66,7 @@ public class AudioManager : MonoBehaviour
         }
         SourceSettings(sound);
         sound.source.Play();
-        print("playing: " + soundName);
+        //print("playing: " + soundName);
     }
 
     private void SourceSettings(SoundObj newSound)

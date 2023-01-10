@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Boat : MonoBehaviour
 {
+    public delegate void MaxPollutantCountReached(PollutantType pollutantType);
+    public static event MaxPollutantCountReached OnMaxPollutantReached;
+    
     //the durability of the boat
     public int Durabilty;
     //the amount of damage the boat takes per tick
@@ -40,6 +43,10 @@ public class Boat : MonoBehaviour
     public Transform[] onBoardPlasticTakeaway;
     public Transform[] onBoardGWCoffee;
     public Transform[] onBoardGWTrash;
+
+    public bool maxGlassReached;
+    public bool maxPlasticReached;
+    public bool maxGeneralWasteReached;
 
     //the index of which onboard item to spawn in the array
     //0 - parent
@@ -140,7 +147,13 @@ public class Boat : MonoBehaviour
             {
                 case PollutantType.type.Glass:
                     //THERE ARE ONLY GLASS BOTTLES
-                    //sets an item of that type to show in the boat
+
+                    if (maxGlassReached)
+                    {
+                        return;
+                    }
+
+                        //sets an item of that type to show in the boat
                     onBoardGlassArray[glassIndex].gameObject.SetActive(true);
 
                     //if it hasnt reached the max amount shown on the boat
@@ -156,13 +169,17 @@ public class Boat : MonoBehaviour
                     //checks if it is a plastic bottle, bag or takeaway
                     //sets an item of that type to show in the boat
 
+                    if (maxPlasticReached)
+                    {
+                        return;
+                    }
+
                     //PLASTIC HAS SUBTYPES
                     switch (pollutant.subType)
                     {
                         case PollutantType.subType.bottles:
 
                             onBoardPlasticBottles[bottlesIndex].gameObject.SetActive(true);
-
                             if (!(bottlesIndex >= (onBoardPlasticBottles.Length - 1)))
                             {
                                 bottlesIndex++;
@@ -193,6 +210,13 @@ public class Boat : MonoBehaviour
                     //checks if its trash, cans or coffee
                     //sets an item of that type to show in the boat
                     //onBoardGeneralWasteArray[generalWasteIndex].gameObject.SetActive(true);
+
+                    if (maxGeneralWasteReached)
+                    {
+                        return;
+                    }
+                    
+                    //GENERAL-WASTE HAS SUB TYPES
                     switch (pollutant.subType)
                     {
                         case PollutantType.subType.cans:

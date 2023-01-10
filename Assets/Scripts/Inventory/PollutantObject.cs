@@ -9,5 +9,4 @@ public class PollutantObject : ScriptableObject
     public PollutantType.type pollutantType;            //the type of the pollutant (G, P, GW)
     public Vector3 pollutantRotation;                   //its rotation in the water
     public Vector3 startOffset;                         //GW spawns sideways
-
 }
